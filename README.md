@@ -44,16 +44,22 @@
 </p>
 
 <br/>
-<p align="center">
-	<a href="https://qm.qq.com/cgi-bin/qm/qr?k=QtsqXLkHpLjE99tkre19j6pjPMhSay1a&jump_from=webapi">
-	<img src="https://img.shields.io/badge/QQ%E7%BE%A4%E2%91%A6-715292493-orange"/></a>
-</p>
+
+[//]: # (<p align="center">)
+
+[//]: # (	<a href="https://qm.qq.com/cgi-bin/qm/qr?k=QtsqXLkHpLjE99tkre19j6pjPMhSay1a&jump_from=webapi">)
+
+[//]: # (	<img src="https://img.shields.io/badge/QQ%E7%BE%A4%E2%91%A6-715292493-orange"/></a>)
+
+[//]: # (</p>)
 
 -------------------------------------------------------------------------------
 
-<p align="center">
-	<a href="#"><img style="width: 45%" alt="" src="https://plus.hutool.cn/images/zanzhu.jpg"/></a>
-</p>
+[//]: # (<p align="center">)
+
+[//]: # (	<a href="#"><img style="width: 45%" alt="" src="https://plus.hutool.cn/images/zanzhu.jpg"/></a>)
+
+[//]: # (</p>)
 
 -------------------------------------------------------------------------------
 
@@ -68,7 +74,7 @@
 可以满足各种不同的开发需求。
 
 
-### 🍺Hutool理念
+### 🍺Hutool-Plus理念
 
 `Hutool-Plus`既是一个工具集，也是一个知识库，我们从不自诩代码原创，大多数工具类都是**搬运**而来，因此：
 
@@ -173,7 +179,7 @@ implementation 'cn.hutool:hutool-all:5.8.30'
 
 ### 🚽编译安装
 
-访问Hutool的Gitee主页：[https://gitee.com/dromara/hutool](https://gitee.com/dromara/hutool) 下载整个项目源码（v5-master或v5-dev分支都可）然后进入Hutool项目目录执行：
+访问Hutool-Plus的Gitee主页：[https://gitee.com/ssoss/hutool](https://gitee.com/dromara/hutool) 下载整个项目源码（v5-master或v5-dev分支都可）然后进入Hutool项目目录执行：
 
 ```sh
 ./hutool.sh install
@@ -187,7 +193,7 @@ implementation 'cn.hutool:hutool-all:5.8.30'
 
 ### 🎋分支说明
 
-Hutool的源码分为两个分支，功能如下：
+Hutool-Plus的源码分为两个分支，功能如下：
 
 | 分支       | 作用                                                          |
 |-----------|---------------------------------------------------------------|
@@ -196,7 +202,7 @@ Hutool的源码分为两个分支，功能如下：
 
 ### 🐞提供bug反馈或建议
 
-提交问题反馈请说明正在使用的JDK版本呢、Hutool版本和相关依赖库版本。
+提交问题反馈请说明正在使用的JDK版本呢、Hutool-Plus版本和相关依赖库版本。
 
 - [Gitee issue](https://gitee.com/dromara/hutool/issues)
 - [Github issue](https://github.com/dromara/hutool/issues)
@@ -218,7 +224,7 @@ Hutool-Plus欢迎任何人为Hutool-Plus添砖加瓦，贡献代码，不过维�
 1. 注释完备，尤其每个新增的方法应按照Java文档规范标明方法说明、参数说明、返回值说明等信息，必要时请添加单元测试，如果愿意，也可以加上你的大名。
 2. Hutool的缩进按照Eclipse（~~不要跟我说IDEA多好用，维护者非常懒，学不会~~，IDEA真香，改了Eclipse快捷键后舒服多了）默认（tab）缩进，所以请遵守（不要和我争执空格与tab的问题，这是一个病人的习惯）。
 3. 新加的方法不要使用第三方库的方法，Hutool遵循无依赖原则（除非在extra模块中加方法工具）。
-4. 请pull request到`v5-dev`分支。Hutool在5.x版本后使用了新的分支：`v5-master`是主分支，表示已经发布中央库的版本，这个分支不允许pr，也不允许修改。
+4. 请pull request到`v5-dev`分支。Hutool-Plus在5.x版本后使用了新的分支：`v5-master`是主分支，表示已经发布中央库的版本，这个分支不允许pr，也不允许修改。
 5. 我们如果关闭了你的issue或pr，请不要诧异，这是我们保持问题处理整洁的一种方式，你依旧可以继续讨论，当有讨论结果时我们会重新打开。
 
 ### 📖文档源码地址
