@@ -24,7 +24,7 @@ public class Issue1687Test {
 		final SysUser sysUser = BeanUtil.toBean(sysUserFb, SysUser.class);
 		// 别名错位导致找不到字段
 		Assert.assertNull(sysUser.getDepart());
-		Assert.assertEquals(new Long(456L), sysUser.getOrgId());
+		Assert.assertEquals(new Double(456D), sysUser.getOrgId());
 	}
 
 	@Test
@@ -58,7 +58,7 @@ public class Issue1687Test {
 		final SysUser sysUser = BeanUtil.toBean(sysUserFb, SysUser.class, copyOptions);
 
 		Assert.assertEquals(new Long(123L), sysUser.getDepart());
-		Assert.assertEquals(new Long(456L), sysUser.getOrgId());
+		Assert.assertEquals(new Double(456D), sysUser.getOrgId());
 	}
 
 	@Data

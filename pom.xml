@@ -6,7 +6,7 @@
 
 	<packaging>pom</packaging>
 
-	<groupId>cn.hutool</groupId>
+	<groupId>cn.hutool.plus</groupId>
 	<artifactId>hutool-parent</artifactId>
 	<version>5.8.30-SNAPSHOT</version>
 	<name>hutool</name>
