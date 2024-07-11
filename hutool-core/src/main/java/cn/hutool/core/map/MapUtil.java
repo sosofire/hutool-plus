@@ -15,6 +15,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 /**
  * Map相关工具类
@@ -32,6 +33,55 @@ public class MapUtil {
 	 * 默认增长因子，当Map的size达到 容量*增长因子时，开始扩充Map
 	 */
 	public static final float DEFAULT_LOAD_FACTOR = 0.75f;
+
+	/**
+	 * 获取map的values的和
+	 * @param map
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 * @author lingengkeng
+	 */
+	public static <K, V extends Number> double getValuesSum(Map<K, V> map){
+		if (CollUtil.isEmpty(map)) {
+			return 0D;
+		}
+
+		return Optional.ofNullable(map.values())
+			.map(Collection::stream)
+			.orElseGet(Stream::empty)
+			.filter(Objects::nonNull)
+			.mapToDouble(Number::doubleValue)
+			.sum();
+	}
+
+	/**
+	 * 获取map的values的和, O为对象类型 需要对列表中的对象中的属性进行统计
+	 * @param map
+	 * @param function 指定对象的属性进行统计
+	 * @param <K>
+	 * @param <V>
+	 * @return
+	 * @author lingengkeng
+	 */
+	public static <K, V, O> double getValuesSum(Map<K, V> map, Function<O, Number> function){
+		if (CollUtil.isEmpty(map)) {
+			return 0;
+		}
+
+		OptionalDouble sumOptional = map.values().stream()
+			.flatMap(value -> value instanceof Collection
+				? ((Collection<O>) value).stream()
+				: Stream.of((O)value))
+			// 确保没有null值进入下一步
+			.filter(Objects::nonNull)
+			.map(function)
+			// 确保function不返回null
+			.filter(Objects::nonNull)
+			.mapToDouble(Number::doubleValue)
+			.reduce(Double::sum);
+		return sumOptional.orElse(0D);
+	}
 
 	/**
 	 * Map是否为空

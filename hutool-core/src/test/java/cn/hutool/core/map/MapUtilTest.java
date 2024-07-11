@@ -4,17 +4,13 @@ import cn.hutool.core.convert.Convert;
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.lang.Opt;
 import cn.hutool.core.util.StrUtil;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,6 +38,61 @@ public class MapUtilTest {
 	public static class UserGroup {
 		private Long userId;
 		private Long groupId;
+	}
+
+	@Data
+	@AllArgsConstructor
+	static class Person {
+		private Double weight;
+	}
+
+	@Data
+	@AllArgsConstructor
+	static class Person1 {
+		private Float weight;
+		private int height;
+	}
+
+
+	@Test
+	public void valueSumTest() {
+
+		double valuesSum1 = MapUtil.getValuesSum(null);
+		Assert.assertEquals(0, valuesSum1, 0);
+
+		// 求和：map的value为数字类型，且存在null的情况
+		double valuesSum2 = MapUtil.getValuesSum(new HashMap<String, Integer>() {{
+			put("1", null);
+			put("2", 2);
+		}});
+		Assert.assertEquals(2, valuesSum2, 0);
+
+		// 求和：map的value，存在null的情况
+		double valuesSum3 = MapUtil.getValuesSum(new HashMap<String, Person>() {{
+			put("1", new Person(5.0));
+		}}, Person::getWeight);
+		Assert.assertEquals(5, valuesSum3, 0);
+
+		double valuesSum4 = MapUtil.getValuesSum(new HashMap<String, Person1>() {{
+			put("1", new Person1(6f, 3));
+			put("2", new Person1(null, 3));
+		}}, Person1::getWeight);
+		Assert.assertEquals(6, valuesSum4, 0);
+
+		// 求和：map的value，value为列表的情况
+		double valuesSum = MapUtil.getValuesSum(new HashMap<String, List<Person1>>() {{
+			put("1", new ArrayList<Person1>() {{
+				add(new Person1(10f, 4));
+				add(new Person1(10f, 5));
+			}});
+			put("2", new ArrayList<Person1>() {{
+				add(new Person1(10f, 4));
+				add(null);
+				add(new Person1(null, 4));
+			}});
+		}}, Person1::getWeight);
+		Assert.assertEquals(30, valuesSum, 0);
+
 	}
 
 
