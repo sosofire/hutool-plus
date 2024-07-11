@@ -1,12 +1,17 @@
-<p align="center">
-	<a href="https://hutool.cn/"><img src="https://cdn.jsdelivr.net/gh/looly/hutool-site/images/logo.jpg" width="45%"></a>
-</p>
+[//]: # (<p align="center">)
+
+[//]: # (	<a href="https://hutool.cn/"><img src="https://cdn.jsdelivr.net/gh/looly/hutool-site/images/logo.jpg" width="45%"></a>)
+
+[//]: # (</p>)
 <p align="center">
 	<strong>🍬A set of tools that keep Java sweet.</strong>
 </p>
-<p align="center">
-	👉 <a href="https://hutool.cn">https://hutool.cn/</a> 👈
-</p>
+
+[//]: # (<p align="center">)
+
+[//]: # (	👉 <a href="https://hutool.cn">https://hutool.cn/</a> 👈)
+
+[//]: # (</p>)
 
 <p align="center">
 	<a target="_blank" href="https://search.maven.org/artifact/cn.hutool/hutool-all">
@@ -58,17 +63,14 @@
 
 ## 📚简介
 
-`Hutool`是一个功能丰富且易用的**Java工具库**，通过诸多实用工具类的使用，旨在帮助开发者快速、便捷地完成各类开发任务。
+`Hutool-Plus`是基于Hutool开源项目，进行功能增强的项目。 `Hutool-Plus`是一个功能丰富且易用的**Java工具库**，通过诸多实用工具类的使用，旨在帮助开发者快速、便捷地完成各类开发任务。
 这些封装的工具涵盖了字符串、数字、集合、编码、日期、文件、IO、加密、数据库JDBC、JSON、HTTP客户端等一系列操作，
 可以满足各种不同的开发需求。
 
-### 🎁Hutool名称的由来
-
-Hutool = Hu + tool，是原公司项目底层代码剥离后的开源库，“Hu”是公司名称的表示，tool表示工具。Hutool谐音“糊涂”，一方面简洁易懂，一方面寓意“难得糊涂”。
 
 ### 🍺Hutool理念
 
-`Hutool`既是一个工具集，也是一个知识库，我们从不自诩代码原创，大多数工具类都是**搬运**而来，因此：
+`Hutool-Plus`既是一个工具集，也是一个知识库，我们从不自诩代码原创，大多数工具类都是**搬运**而来，因此：
 
 - 你可以引入使用，也可以**拷贝**和修改使用，而**不必标注任何信息**，只是希望能把bug及时反馈回来。
 - 我们努力健全**中文**注释，为源码学习者提供良好地学习环境，争取做到人人都能看得懂。
@@ -104,7 +106,7 @@ Hutool = Hu + tool，是原公司项目底层代码剥离后的开源库，“Hu
 
 -------------------------------------------------------------------------------
 
-## 📝文档 
+## 📝文档
 
 [📘中文文档](https://doc.hutool.cn/pages/index/)
 
@@ -116,21 +118,28 @@ Hutool = Hu + tool，是原公司项目底层代码剥离后的开源库，“Hu
 
 -------------------------------------------------------------------------------
 
-## 🪙支持Hutool
+[//]: # (## 🪙支持Hutool)
 
-### 💳捐赠
+[//]: # ()
+[//]: # (### 💳捐赠)
 
-如果你觉得Hutool不错，可以捐赠请维护者吃包辣条~，在此表示感谢^_^。
+[//]: # ()
+[//]: # (如果你觉得Hutool不错，可以捐赠请维护者吃包辣条~，在此表示感谢^_^。)
 
-[Gitee上捐赠](https://gitee.com/dromara/hutool)
+[//]: # ()
+[//]: # ([Gitee上捐赠]&#40;https://gitee.com/dromara/hutool&#41;)
 
-### 👕周边商店
+[//]: # ()
+[//]: # (### 👕周边商店)
 
-你也可以通过购买Hutool的周边商品来支持Hutool维护哦！
+[//]: # ()
+[//]: # (你也可以通过购买Hutool的周边商品来支持Hutool维护哦！)
 
-我们提供了印有Hutool Logo的周边商品，欢迎点击购买支持：
+[//]: # ()
+[//]: # (我们提供了印有Hutool Logo的周边商品，欢迎点击购买支持：)
 
-👉 [Hutool 周边商店](https://market.m.taobao.com/apps/market/content/index.html?wh_weex=true&contentId=331724720170) 👈
+[//]: # ()
+[//]: # (👉 [Hutool 周边商店]&#40;https://market.m.taobao.com/apps/market/content/index.html?wh_weex=true&contentId=331724720170&#41; 👈)
 
 -------------------------------------------------------------------------------
 
@@ -204,7 +213,7 @@ Hutool的源码分为两个分支，功能如下：
 
 ### 📐PR遵照的原则
 
-Hutool欢迎任何人为Hutool添砖加瓦，贡献代码，不过维护者是一个强迫症患者，为了照顾病人，需要提交的pr（pull request）符合一些规范，规范如下：
+Hutool-Plus欢迎任何人为Hutool-Plus添砖加瓦，贡献代码，不过维护者是一个强迫症患者，为了照顾病人，需要提交的pr（pull request）符合一些规范，规范如下：
 
 1. 注释完备，尤其每个新增的方法应按照Java文档规范标明方法说明、参数说明、返回值说明等信息，必要时请添加单元测试，如果愿意，也可以加上你的大名。
 2. Hutool的缩进按照Eclipse（~~不要跟我说IDEA多好用，维护者非常懒，学不会~~，IDEA真香，改了Eclipse快捷键后舒服多了）默认（tab）缩进，所以请遵守（不要和我争执空格与tab的问题，这是一个病人的习惯）。
@@ -218,6 +227,6 @@ Hutool欢迎任何人为Hutool添砖加瓦，贡献代码，不过维护者是�
 
 -------------------------------------------------------------------------------
 
-## ⭐Star Hutool
+## ⭐Star Hutool-Plus
 
 [![Stargazers over time](https://starchart.cc/dromara/hutool.svg)](https://starchart.cc/dromara/hutool)
