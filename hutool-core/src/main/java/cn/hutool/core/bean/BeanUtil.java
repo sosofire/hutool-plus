@@ -892,6 +892,38 @@ public class BeanUtil {
 	 * 复制集合中的Bean属性<br>
 	 * 此方法遍历集合中每个Bean，复制其属性后加入一个新的{@link List}中。
 	 *
+	 * @param collection           原Bean集合
+	 * @param targetType            目标Bean类型
+	 * @param beanCopyConsumer     属性复制函数
+	 * @param copyOptions          拷贝选项
+	 * @param <T>                  Bean类型
+	 * @return 复制后的List
+	 * @author lingengkeng
+	 */
+	public static <S, T> List<T> copyToList(Collection<S> collection, Class<T> targetType, BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer, CopyOptions copyOptions) {
+		if (null == collection) {
+			return null;
+		}
+		if (collection.isEmpty()) {
+			return new ArrayList<>(0);
+		}
+
+		// issue#3091
+		if(ClassUtil.isBasicType(targetType) || String.class == targetType){
+			return Convert.toList(targetType, collection);
+		}
+
+		return collection.stream().map((source) -> {
+			final T target = ReflectUtil.newInstanceIfPossible(targetType);
+			copyProperties(source, target, beanCopyConsumer, copyOptions);
+			return target;
+		}).collect(Collectors.toList());
+	}
+
+	/**
+	 * 复制集合中的Bean属性<br>
+	 * 此方法遍历集合中每个Bean，复制其属性后加入一个新的{@link List}中。
+	 *
 	 * @param collection 原Bean集合
 	 * @param targetType 目标Bean类型
 	 * @param <T>        Bean类型
@@ -900,6 +932,21 @@ public class BeanUtil {
 	 */
 	public static <T> List<T> copyToList(Collection<?> collection, Class<T> targetType) {
 		return copyToList(collection, targetType, CopyOptions.create());
+	}
+
+	/**
+	 * 复制集合中的Bean属性<br>
+	 * 此方法遍历集合中每个Bean，复制其属性后加入一个新的{@link List}中。
+	 *
+	 * @param collection           原Bean集合
+	 * @param targetType            目标Bean类型
+	 * @param beanCopyConsumer     属性复制函数
+	 * @param <T>                  Bean类型
+	 * @return 复制后的List
+	 * @author lingengkeng
+	 */
+	public static <S, T> List<T> copyToList(Collection<S> collection, Class<T> targetType, BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer) {
+		return copyToList(collection, targetType, beanCopyConsumer, CopyOptions.create());
 	}
 
 	/**
