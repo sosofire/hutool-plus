@@ -45,7 +45,7 @@
 
 ```xml
 <dependency>
-    <groupId>cn.hutool.plus</groupId>
+    <groupId>cn.hutool-plus</groupId>
     <artifactId>hutool-all</artifactId>
     <version>5.8.30</version>
 </dependency>
