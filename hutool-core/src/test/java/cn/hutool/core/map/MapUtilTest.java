@@ -70,6 +70,7 @@ public class MapUtilTest {
 		// 求和：map的value，存在null的情况
 		double valuesSum3 = MapUtil.getValuesSum(new HashMap<String, Person>() {{
 			put("1", new Person(5.0));
+			put("2", new Person(null));
 		}}, Person::getWeight);
 		Assert.assertEquals(5, valuesSum3, 0);
 
@@ -80,7 +81,7 @@ public class MapUtilTest {
 		Assert.assertEquals(6, valuesSum4, 0);
 
 		// 求和：map的value，value为列表的情况
-		double valuesSum = MapUtil.getValuesSum(new HashMap<String, List<Person1>>() {{
+		Map<String, List<Person1>> person1Map = new HashMap(){{
 			put("1", new ArrayList<Person1>() {{
 				add(new Person1(10f, 4));
 				add(new Person1(10f, 5));
@@ -90,7 +91,8 @@ public class MapUtilTest {
 				add(null);
 				add(new Person1(null, 4));
 			}});
-		}}, Person1::getWeight);
+		}};
+		double valuesSum = MapUtil.getValuesSum(person1Map, Person1::getWeight);
 		Assert.assertEquals(30, valuesSum, 0);
 
 	}

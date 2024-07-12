@@ -63,23 +63,11 @@
 
 -------------------------------------------------------------------------------
 
-[**🌎English Documentation**](README-EN.md)
-
--------------------------------------------------------------------------------
-
 ## 📚简介
 
 `Hutool-Plus`是基于Hutool开源项目，进行功能增强的开源项目。 `Hutool-Plus`是一个功能丰富且易用的**Java工具库**，通过诸多实用工具类的使用，旨在帮助开发者快速、便捷地完成各类开发任务。
 这些封装的工具涵盖了字符串、数字、集合、编码、日期、文件、IO、加密、数据库JDBC、JSON、HTTP客户端等一系列操作，
 可以满足各种不同的开发需求。
-
-
-### 🍺Hutool-Plus理念
-
-`Hutool-Plus`既是一个工具集，也是一个知识库，我们从不自诩代码原创，大多数工具类都是**搬运**而来，因此：
-
-- 你可以引入使用，也可以**拷贝**和修改使用，而**不必标注任何信息**，只是希望能把bug及时反馈回来。
-- 我们努力健全**中文**注释，为源码学习者提供良好地学习环境，争取做到人人都能看得懂。
 
 -------------------------------------------------------------------------------
 
@@ -113,6 +101,10 @@
 -------------------------------------------------------------------------------
 
 ## 📝文档
+
+[**🌎English Documentation**](README-EN.md)
+
+-------------------------------------------------------------------------------
 
 [📘中文文档](https://doc.hutool.cn/pages/index/)
 
@@ -164,28 +156,174 @@
 
 ### 🍐Gradle
 ```
-implementation 'cn.hutool:hutool-all:5.8.30'
+implementation 'cn.hutool.plus:hutool-all:5.8.30'
 ```
 
 ### 📥下载jar
 
 点击以下链接，下载`hutool-all-X.X.X.jar`即可：
 
-- [Maven中央库](https://repo1.maven.org/maven2/cn/hutool/hutool-all/5.8.30/)
+- [Maven中央库](https://repo1.maven.org/maven2/cn/hutool-plus/hutool-all/5.8.30/)
 
 > 🔔️注意
-> Hutool 5.x支持JDK8+，对Android平台没有测试，不能保证所有工具类或工具方法可用。
-> 如果你的项目使用JDK7，请使用Hutool 4.x版本（不再更新）
+> Hutool-Plus 5.x支持JDK8+，对Android平台没有测试，不能保证所有工具类或工具方法可用。
 
 ### 🚽编译安装
 
-访问Hutool-Plus的Gitee主页：[https://gitee.com/ssoss/hutool](https://gitee.com/dromara/hutool) 下载整个项目源码（v5-master或v5-dev分支都可）然后进入Hutool项目目录执行：
+访问Hutool-Plus的Gitee主页：[https://gitee.com/ssoss/hutool](https://gitee.com/ssoss/hutool-plus) 下载整个项目源码（v5-master或v5-dev分支都可）然后进入Hutool-Plus项目目录执行：
 
 ```sh
 ./hutool.sh install
 ```
 
 然后就可以使用Maven引入了。
+
+-------------------------------------------------------------------------------
+
+### ⌨️使用例子
+
+#### 1. Bean拷贝：自定义属性拷贝 与 默认属性转换
+
+```Java
+@Data
+static class SysUserFb implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private String depId;
+
+	private String customerId;
+
+	/**
+	 * 估值 Double类型
+	 */
+	private Double value;
+}
+
+@Data
+@Setter
+static class SysUser implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private Long depart;
+
+	private Double orgId;
+
+	/**
+	 * 估值 String类型
+	 */
+	private String value;
+}
+
+@Test
+public void toBeanTest1(){
+	// 创建源对象
+	final SysUserFb sysUserFb = new SysUserFb();
+	sysUserFb.setDepId("123");
+	sysUserFb.setCustomerId("456");
+	sysUserFb.setValue(1d);
+
+	final SysUser sysUser = BeanUtil.toBean(sysUserFb, SysUser.class, (targetProp, source, target, sourceValue) -> {
+		// 相同属性不同类型：把属性值进行逻辑运算，并赋值给目标属性
+		targetProp.set(source::getValue, target::getValue, Double.valueOf(sourceValue.toString()) + 1);
+		// 不同属性，不同类型：直接赋值给目标属性
+		targetProp.set(source::getCustomerId, target::getOrgId, sourceValue);
+	});
+}
+
+```
+
+#### 2. Bean列表拷贝：自定义属性拷贝 与 默认属性转换
+
+```Java
+@Test
+public void copyToListTest(){
+	// 创建源对象
+	final SysUserFb sysUserFb = new SysUserFb();
+	sysUserFb.setDepId("123");
+	sysUserFb.setCustomerId("456");
+	sysUserFb.setValue(1d);
+	// 列表
+	List<SysUserFb> sysUserFbList = Arrays.asList(sysUserFb);
+	
+	// 列表中的对象属性值转换
+	List<SysUser> sysUsers = BeanUtil.copyToList(sysUserFbList, SysUser.class, (targetProp, source, target, sourceValue) -> {
+		// 不同属性，不同类型：直接赋值给目标属性
+		targetProp.set(source::getCustomerId, target::getOrgId, sourceValue);
+		// 相同属性不同类型：把属性值进行逻辑运算，并赋值给目标属性
+		targetProp.set(source::getValue, target::getValue, Double.valueOf(sourceValue.toString()) + 1);
+	});
+}
+```
+
+#### 3. 对Map的value求和
+
+```Java
+@Data
+@AllArgsConstructor
+static class Person {
+	private Double weight;
+}
+
+@Data
+@AllArgsConstructor
+static class Person1 {
+	private Float weight;
+	private int height;
+}
+
+@Test
+public void valueSumTest() {
+	
+	// 求和：map的value为 数字类型，且存在null的情况
+	double valuesSum2 = MapUtil.getValuesSum(new HashMap<String, Integer>() {{
+		put("1", null);
+		put("2", 2);
+	}});
+	// 结果：2
+	Assert.assertEquals(2, valuesSum2, 0);
+
+	// 求和：map的value为Person对象，存在null的情况
+	double valuesSum3 = MapUtil.getValuesSum(new HashMap<String, Person>() {{
+		put("1", new Person(5.0));
+		put("2", new Person(null));
+	}}, Person::getWeight); // 对对象weight属性求和
+	// 结果：5
+	Assert.assertEquals(5, valuesSum3, 0);
+
+	double valuesSum4 = MapUtil.getValuesSum(new HashMap<String, Person1>() {{
+		put("1", new Person1(6f, 3));
+		put("2", new Person1(null, 3));
+	}}, Person1::getWeight); // 对对象weight属性求和
+	Assert.assertEquals(6, valuesSum4, 0);
+}
+```
+### 4. 对Map的value求和，且value为列表对象
+
+```Java
+@Test
+public void valueSumTest() {
+	// 求和：map的value，value为列表的情况
+	
+	// map value为列表的情况
+	Map<String, List<Person1>> person1Map = new HashMap(){{
+		put("1", new ArrayList<Person1>() {{
+			add(new Person1(10f, 4));
+			add(new Person1(10f, 5));
+		}});
+		put("2", new ArrayList<Person1>() {{
+			add(new Person1(10f, 4));
+			add(null);
+			add(new Person1(null, 4));
+		}});
+	}};
+	
+	double valuesSum = MapUtil.getValuesSum(person1Map, Person1::getWeight);
+	Assert.assertEquals(30, valuesSum, 0);
+}
+```
+
 
 -------------------------------------------------------------------------------
 
@@ -219,20 +357,22 @@ Hutool-Plus的源码分为两个分支，功能如下：
 
 ### 📐PR遵照的原则
 
-Hutool-Plus欢迎任何人为Hutool-Plus添砖加瓦，贡献代码，不过维护者是一个强迫症患者，为了照顾病人，需要提交的pr（pull request）符合一些规范，规范如下：
+Hutool-Plus欢迎任何人为Hutool-Plus添砖加瓦，贡献代码。需要提交的pr（pull request）符合一些规范，规范如下：
 
 1. 注释完备，尤其每个新增的方法应按照Java文档规范标明方法说明、参数说明、返回值说明等信息，必要时请添加单元测试，如果愿意，也可以加上你的大名。
-2. Hutool的缩进按照Eclipse（~~不要跟我说IDEA多好用，维护者非常懒，学不会~~，IDEA真香，改了Eclipse快捷键后舒服多了）默认（tab）缩进，所以请遵守（不要和我争执空格与tab的问题，这是一个病人的习惯）。
-3. 新加的方法不要使用第三方库的方法，Hutool遵循无依赖原则（除非在extra模块中加方法工具）。
+2. Hutool-Plus的缩进，使用Tab键缩进。
+3. 新加的方法不要使用第三方库的方法，Hutool-Plus遵循无依赖原则（除非在extra模块中加方法工具）。
 4. 请pull request到`v5-dev`分支。Hutool-Plus在5.x版本后使用了新的分支：`v5-master`是主分支，表示已经发布中央库的版本，这个分支不允许pr，也不允许修改。
 5. 我们如果关闭了你的issue或pr，请不要诧异，这是我们保持问题处理整洁的一种方式，你依旧可以继续讨论，当有讨论结果时我们会重新打开。
 
-### 📖文档源码地址
+[//]: # (### 📖文档源码地址)
 
-[文档源码地址](https://gitee.com/loolly_admin/hutool-doc-handy) 点击前往添砖加瓦
+[//]: # ()
+[//]: # ([文档源码地址]&#40;https://gitee.com/loolly_admin/hutool-doc-handy&#41; 点击前往添砖加瓦)
 
 -------------------------------------------------------------------------------
 
-## ⭐Star Hutool-Plus
+[//]: # (## ⭐Star Hutool-Plus)
 
-[![Stargazers over time](https://starchart.cc/dromara/hutool.svg)](https://starchart.cc/dromara/hutool)
+[//]: # ()
+[//]: # ([![Stargazers over time]&#40;https://starchart.cc/dromara/hutool.svg&#41;]&#40;https://starchart.cc/dromara/hutool&#41;)
