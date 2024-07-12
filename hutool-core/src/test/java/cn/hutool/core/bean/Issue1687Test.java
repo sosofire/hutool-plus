@@ -46,11 +46,23 @@ public class Issue1687Test {
 
 		Assert.assertNull(sysUser.getDepart());
 		Assert.assertEquals(Double.valueOf(sysUserFb.getCustomerId()), sysUser.getOrgId());
+	}
+
+	@Test
+	public void copyToListTest(){
+		final SysUserFb sysUserFb = new SysUserFb();
+		sysUserFb.setDepId("123");
+		sysUserFb.setCustomerId("456");
+		sysUserFb.setValue(1d);
 
 		// 列表中的对象属性值转换
 		List<SysUser> sysUsers = BeanUtil.copyToList(Arrays.asList(sysUserFb), SysUser.class, (targetProp, source, target, sourceValue) -> {
+			// 不同属性，不同类型：直接赋值给目标属性
 			targetProp.set(source::getCustomerId, target::getOrgId, sourceValue);
+			// 相同属性不同类型：把属性值进行逻辑运算，并赋值给目标属性
+			targetProp.set(source::getValue, target::getValue, Double.valueOf(sourceValue.toString()) + 1);
 		});
+
 		Assert.assertEquals(Double.valueOf(sysUserFb.getCustomerId()), sysUsers.get(0).getOrgId());
 	}
 

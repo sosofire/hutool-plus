@@ -83,7 +83,7 @@ public class BeanCopier<S, T> implements Copier<T>, Serializable {
 		if (source instanceof Map) {
 			if (target instanceof Map) {
 				//noinspection unchecked
-				copier = (Copier<T>) new MapToMapCopier((Map<?, ?>) source, (Map<?, ?>) target, targetType, (BeanCopyConsumer<TargetProp, Map, Map, Object>)beanCopyConsumer, copyOptions);
+				copier = (Copier<T>) new MapToMapCopier((Map<?, ?>) source, (Map<?, ?>) target, targetType, copyOptions);
 			} else {
 				copier = new MapToBeanCopier<>((Map<?, ?>) source, target, targetType, copyOptions);
 			}
@@ -130,7 +130,7 @@ public class BeanCopier<S, T> implements Copier<T>, Serializable {
 		if (source instanceof Map) {
 			if (target instanceof Map) {
 				//noinspection unchecked
-				copier = (Copier<T>) new MapToMapCopier((Map<?, ?>) source, (Map<?, ?>) target, targetType, null, copyOptions);
+				copier = (Copier<T>) new MapToMapCopier((Map<?, ?>) source, (Map<?, ?>) target, targetType, copyOptions);
 			} else {
 				copier = new MapToBeanCopier<>((Map<?, ?>) source, target, targetType, copyOptions);
 			}
