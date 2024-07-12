@@ -185,8 +185,11 @@ implementation 'cn.hutool.plus:hutool-all:5.8.30'
 #### 1. Bean拷贝：自定义属性拷贝 与 默认属性转换
 
 ```Java
+/**
+ * 源对象
+ */
 @Data
-static class SysUserFb implements Serializable {
+static class SysUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -195,14 +198,17 @@ static class SysUserFb implements Serializable {
 	private String customerId;
 
 	/**
-	 * 估值 Double类型
+	 * Double类型的value
 	 */
 	private Double value;
 }
 
+/**
+ * 目标对象
+ */
 @Data
 @Setter
-static class SysUser implements Serializable {
+static class SysUserVO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -211,7 +217,7 @@ static class SysUser implements Serializable {
 	private Double orgId;
 
 	/**
-	 * 估值 String类型
+	 * String类型的value
 	 */
 	private String value;
 }
@@ -219,13 +225,14 @@ static class SysUser implements Serializable {
 @Test
 public void toBeanTest1(){
 	// 创建源对象
-	final SysUserFb sysUserFb = new SysUserFb();
-	sysUserFb.setDepId("123");
-	sysUserFb.setCustomerId("456");
-	sysUserFb.setValue(1d);
+	final SysUser sysUser = new SysUser();
+	sysUser.setDepId("123");
+	sysUser.setCustomerId("456");
+	sysUser.setValue(1d);
 
-	final SysUser sysUser = BeanUtil.toBean(sysUserFb, SysUser.class, (targetProp, source, target, sourceValue) -> {
+	final SysUserVO sysUserVO = BeanUtil.toBean(sysUser, SysUserVO.class, (targetProp, source, target, sourceValue) -> {
 		// 相同属性不同类型：把属性值进行逻辑运算，并赋值给目标属性
+		//targetProp.set(source::getValue, target::getValue, sourceValue.toString() + "kg/㎡");
 		targetProp.set(source::getValue, target::getValue, Double.valueOf(sourceValue.toString()) + 1);
 		// 不同属性，不同类型：直接赋值给目标属性
 		targetProp.set(source::getCustomerId, target::getOrgId, sourceValue);
@@ -240,15 +247,15 @@ public void toBeanTest1(){
 @Test
 public void copyToListTest(){
 	// 创建源对象
-	final SysUserFb sysUserFb = new SysUserFb();
-	sysUserFb.setDepId("123");
-	sysUserFb.setCustomerId("456");
-	sysUserFb.setValue(1d);
+	final SysUser sysUser = new SysUser();
+	sysUser.setDepId("123");
+	sysUser.setCustomerId("456");
+	sysUser.setValue(1d);
 	// 列表
-	List<SysUserFb> sysUserFbList = Arrays.asList(sysUserFb);
+	List<SysUser> sysUserList = Arrays.asList(sysUser);
 	
 	// 列表中的对象属性值转换
-	List<SysUser> sysUsers = BeanUtil.copyToList(sysUserFbList, SysUser.class, (targetProp, source, target, sourceValue) -> {
+	List<SysUserVO> sysUserVOList = BeanUtil.copyToList(sysUserList, SysUserVO.class, (targetProp, source, target, sourceValue) -> {
 		// 不同属性，不同类型：直接赋值给目标属性
 		targetProp.set(source::getCustomerId, target::getOrgId, sourceValue);
 		// 相同属性不同类型：把属性值进行逻辑运算，并赋值给目标属性
