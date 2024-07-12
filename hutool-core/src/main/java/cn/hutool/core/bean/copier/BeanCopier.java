@@ -20,6 +20,7 @@ import java.util.Map;
  *
  * @author looly
  *
+ * @param <S> 源对象类型
  * @param <T> 目标对象类型
  * @since 3.2.3
  */
@@ -31,6 +32,7 @@ public class BeanCopier<S, T> implements Copier<T>, Serializable {
 	/**
 	 * 创建BeanCopier
 	 *
+	 * @param <S> 源对象类型
 	 * @param <T> 目标Bean类型
 	 * @param source 来源对象，可以是Bean或者Map
 	 * @param target 目标Bean对象
@@ -44,9 +46,11 @@ public class BeanCopier<S, T> implements Copier<T>, Serializable {
 	/**
 	 * 创建BeanCopier
 	 *
+	 * @param <S> 源对象类型
 	 * @param <T> 目标Bean类型
 	 * @param source 来源对象，可以是Bean或者Map
 	 * @param target 目标Bean对象
+	 * @param beanCopyConsumer 属性拷贝函数
 	 * @param copyOptions 拷贝属性选项
 	 * @return BeanCopier
 	 */
@@ -57,9 +61,12 @@ public class BeanCopier<S, T> implements Copier<T>, Serializable {
 	/**
 	 * 创建BeanCopier
 	 *
+	 * @param <S> 源对象类型
 	 * @param <T> 目标Bean类型
 	 * @param source 来源对象，可以是Bean或者Map
 	 * @param target 目标Bean对象
+	 * @param destType 目标的泛型类型，用于标注有泛型参数的Bean对象
+	 * @param beanCopyConsumer 属性拷贝函数
 	 * @param copyOptions 拷贝属性选项
 	 * @return BeanCopier
 	 */
@@ -68,13 +75,14 @@ public class BeanCopier<S, T> implements Copier<T>, Serializable {
 	}
 
 	/**
-	 * 创建BeanCopier
+	 * 创建一个 BeanCopier 实例，用于拷贝数据源中的属性到目标 Bean 或 Map。
 	 *
-	 * @param <T> 目标Bean类型
-	 * @param source 来源对象，可以是Bean或者Map
-	 * @param target 目标Bean对象
-	 * @param copyOptions 拷贝属性选项
-	 * @return BeanCopier
+	 * @param source              来源对象，可以是实现了 Bean 接口的对象或 Map。
+	 * @param target              目标 Bean 对象，可以是实现了 Bean 接口的对象或 Map。
+	 * @param targetType          目标 Bean 的类型，用于类型转换。
+	 * @param beanCopyConsumer    属性拷贝函数，用于定制拷贝行为。
+	 * @param copyOptions         拷贝属性选项，用于控制拷贝过程中的行为。
+	 * @throws IllegalArgumentException 如果 source 或 target 为 null，则抛出此异常。
 	 */
 	public BeanCopier(S source, T target, Type targetType, BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer, CopyOptions copyOptions) {
 		Assert.notNull(source, "Source bean must be not null!");
@@ -104,6 +112,7 @@ public class BeanCopier<S, T> implements Copier<T>, Serializable {
 	/**
 	 * 创建BeanCopier
 	 *
+	 * @param <S> 源对象类型
 	 * @param <T> 目标Bean类型
 	 * @param source 来源对象，可以是Bean或者Map
 	 * @param target 目标Bean对象

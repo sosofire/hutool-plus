@@ -519,6 +519,7 @@ public class BeanUtil {
 	/**
 	 * 对象或Map转Bean
 	 *
+	 * @param <S>    源对象类型
 	 * @param <T>    转换的Bean类型
 	 * @param source Bean对象或Map
 	 * @param clazz  目标的Bean类型
@@ -532,6 +533,7 @@ public class BeanUtil {
 	/**
 	 * 对象或Map转Bean
 	 *
+	 * @param <S>              源对象类型
 	 * @param <T>              转换的Bean类型
 	 * @param source           Bean对象或Map
 	 * @param clazz            目标的Bean类型
@@ -545,6 +547,7 @@ public class BeanUtil {
 	/**
 	 * 对象或Map转Bean，忽略字段转换时发生的异常
 	 *
+	 * @param <S>    源对象类型
 	 * @param <T>    转换的Bean类型
 	 * @param source Bean对象或Map
 	 * @param clazz  目标的Bean类型
@@ -558,6 +561,7 @@ public class BeanUtil {
 	/**
 	 * 对象或Map转Bean，忽略字段转换时发生的异常
 	 *
+	 * @param <S>         源对象类型
 	 * @param <T>         转换的Bean类型
 	 * @param source      Bean对象或Map
 	 * @param clazz       目标的Bean类型
@@ -575,6 +579,7 @@ public class BeanUtil {
 	/**
 	 * 对象或Map转Bean
 	 *
+	 * @param <S>     源对象类型
 	 * @param <T>     转换的Bean类型
 	 * @param source  Bean对象或Map
 	 * @param clazz   目标的Bean类型
@@ -589,6 +594,7 @@ public class BeanUtil {
 	/**
 	 * 对象或Map转Bean
 	 *
+	 * @param <S>              源对象类型
 	 * @param <T>              转换的Bean类型
 	 * @param source           Bean对象或Map
 	 * @param clazz            目标的Bean类型
@@ -603,6 +609,7 @@ public class BeanUtil {
 	/**
 	 * 对象或Map转Bean
 	 *
+	 * @param <S>            源对象类型
 	 * @param <T>            转换的Bean类型
 	 * @param source         Bean对象或Map
 	 * @param targetSupplier 目标的Bean创建器
@@ -622,6 +629,7 @@ public class BeanUtil {
 	/**
 	 * 对象或Map转Bean
 	 *
+	 * @param <S>              源对象类型
 	 * @param <T>              转换的Bean类型
 	 * @param source           Bean对象或Map
 	 * @param targetSupplier   目标的Bean创建器
@@ -807,6 +815,8 @@ public class BeanUtil {
 	 * 复制Bean对象属性<br>
 	 * 限制类用于限制拷贝的属性，例如一个类我只想复制其父类的一些属性，就可以将editable设置为父类
 	 *
+	 * @param <S>              源对象类型
+	 * @param <T>              目标对象类型
 	 * @param source           源Bean对象
 	 * @param target           目标Bean对象
 	 * @param ignoreProperties 不拷贝的的属性列表
@@ -818,6 +828,8 @@ public class BeanUtil {
 	/**
 	 * 复制Bean对象属性<br>
 	 *
+	 * @param <S>        源对象类型
+	 * @param <T>        目标对象类型
 	 * @param source     源Bean对象
 	 * @param target     目标Bean对象
 	 * @param ignoreCase 是否忽略大小写
@@ -830,6 +842,8 @@ public class BeanUtil {
 	 * 复制Bean对象属性<br>
 	 * 限制类用于限制拷贝的属性，例如一个类我只想复制其父类的一些属性，就可以将editable设置为父类
 	 *
+	 * @param <S>         源对象类型
+	 * @param <T>        目标对象类型
 	 * @param source      源Bean对象
 	 * @param target      目标Bean对象
 	 * @param copyOptions 拷贝选项，见 {@link CopyOptions}
@@ -845,6 +859,8 @@ public class BeanUtil {
 	 * 复制Bean对象属性<br>
 	 * 限制类用于限制拷贝的属性，例如一个类我只想复制其父类的一些属性，就可以将editable设置为父类
 	 *
+	 * @param <S>                  源对象类型
+	 * @param <T>        		   目标对象类型
 	 * @param source               源Bean对象
 	 * @param target               目标Bean对象
 	 * @param beanCopyConsumer     属性复制函数
@@ -892,6 +908,7 @@ public class BeanUtil {
 	 * 复制集合中的Bean属性<br>
 	 * 此方法遍历集合中每个Bean，复制其属性后加入一个新的{@link List}中。
 	 *
+	 * @param <S>                  源对象类型
 	 * @param collection           原Bean集合
 	 * @param targetType            目标Bean类型
 	 * @param beanCopyConsumer     属性复制函数
@@ -938,6 +955,7 @@ public class BeanUtil {
 	 * 复制集合中的Bean属性<br>
 	 * 此方法遍历集合中每个Bean，复制其属性后加入一个新的{@link List}中。
 	 *
+	 * @param <S>                  源对象类型
 	 * @param collection           原Bean集合
 	 * @param targetType            目标Bean类型
 	 * @param beanCopyConsumer     属性复制函数

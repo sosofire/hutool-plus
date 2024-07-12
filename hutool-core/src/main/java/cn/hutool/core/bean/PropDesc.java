@@ -292,11 +292,12 @@ public class PropDesc {
 	/**
 	 * 返回属性值
 	 *
-	 * @param value
-	 * @param ignoreNull
-	 * @param ignoreError
-	 * @param override
-	 * @return
+	 * @param <T> 属性值类型
+	 * @param value 属性值，可以为任意类型
+	 * @param ignoreNull 是否忽略{@code null}值，true表示忽略
+	 * @param ignoreError 是否忽略错误，包括转换错误和注入错误
+	 * @param override 是否覆盖目标值，如果不覆盖，会先读取bean的值，{@code null}则写，否则忽略。如果覆盖，则不判断直接写
+	 * @return 字段属性值
 	 */
 	public <T> T handleFieldValue(Object value, boolean ignoreNull, boolean ignoreError, boolean override) {
 		// 非覆盖模式下

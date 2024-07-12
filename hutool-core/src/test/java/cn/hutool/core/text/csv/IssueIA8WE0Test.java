@@ -22,7 +22,7 @@ public class IssueIA8WE0Test {
 		assertEquals(3, rows.get(0).size());
 		assertEquals("c1_text1", rows.get(0).get(0));
 		// 如果\n#出现在双引号中，表示实际的文本内容，并不算注释
-		assertEquals("c1_text2\n#c1_text2_line2", rows.get(0).get(1));
+		assertEquals("c1_text2\r\n#c1_text2_line2", rows.get(0).get(1));
 		assertEquals("c1_text3", rows.get(0).get(2));
 
 		IoUtil.close(csvReader);
