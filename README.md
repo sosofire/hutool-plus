@@ -283,19 +283,22 @@ static class Person1 {
 @Test
 public void valueSumTest() {
 	
-	// 求和：map的value为 数字类型，且存在null的情况
-	double valuesSum2 = MapUtil.getValuesSum(new HashMap<String, Integer>() {{
+	// 1.求和：map的value为 数字类型，且存在null的情况
+	Map<String, Integer> map = new HashMap() {{
 		put("1", null);
 		put("2", 2);
-	}});
+	}};
+	double valuesSum = MapUtil.getValuesSum(map);
 	// 结果：2
-	Assert.assertEquals(2, valuesSum2, 0);
+	Assert.assertEquals(2, valuesSum, 0);
 
-	// 求和：map的value为Person对象，存在null的情况
-	double valuesSum3 = MapUtil.getValuesSum(new HashMap<String, Person>() {{
+	// 2.求和：map的value为Person对象，属性存在null的情况
+	Map<String, Person> map1 = new HashMap() {{
 		put("1", new Person(5.0));
 		put("2", new Person(null));
-	}}, Person::getWeight); // 对对象weight属性求和
+	}};
+	// 对对象weight属性求和
+	double valuesSum3 = MapUtil.getValuesSum(map1, Person::getWeight); 
 	// 结果：5
 	Assert.assertEquals(5, valuesSum3, 0);
 
