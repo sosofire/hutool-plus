@@ -7,7 +7,7 @@
 	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>cn.hutool.plus</groupId>
+		<groupId>cn.hutool-plus</groupId>
 		<artifactId>hutool-parent</artifactId>
 		<version>5.8.30-SNAPSHOT</version>
 	</parent>
@@ -26,7 +26,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>cn.hutool.plus</groupId>
+			<groupId>cn.hutool-plus</groupId>
 			<artifactId>hutool-core</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
