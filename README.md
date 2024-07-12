@@ -1,65 +1,3 @@
-[//]: # (<p align="center">)
-
-[//]: # (	<a href="https://hutool.cn/"><img src="https://cdn.jsdelivr.net/gh/looly/hutool-site/images/logo.jpg" width="45%"></a>)
-
-[//]: # (</p>)
-<p align="center">
-	<strong>🍬A set of tools that keep Java sweet.</strong>
-</p>
-
-[//]: # (<p align="center">)
-
-[//]: # (	👉 <a href="https://hutool.cn">https://hutool.cn/</a> 👈)
-
-[//]: # (</p>)
-
-<p align="center">
-	<a target="_blank" href="https://search.maven.org/artifact/cn.hutool/hutool-all">
-		<img src="https://img.shields.io/maven-central/v/cn.hutool/hutool-all.svg?label=Maven%20Central" />
-	</a>
-	<a target="_blank" href="https://license.coscl.org.cn/MulanPSL2">
-		<img src="https://img.shields.io/:license-MulanPSL2-blue.svg" />
-	</a>
-	<a target="_blank" href="https://www.oracle.com/java/technologies/javase/javase-jdk8-downloads.html">
-		<img src="https://img.shields.io/badge/JDK-8+-green.svg" />
-	</a>
-	<a target="_blank" href="https://travis-ci.com/dromara/hutool">
-		<img src="https://travis-ci.com/dromara/hutool.svg?branch=v5-master" />
-	</a>
-	<a href="https://www.codacy.com/gh/dromara/hutool/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dromara/hutool&amp;utm_campaign=Badge_Grade">
-		<img src="https://app.codacy.com/project/badge/Grade/8a6897d9de7440dd9de8804c28d2871d"/>
-	</a>
-	<a href="https://codecov.io/gh/dromara/hutool">
-		<img src="https://codecov.io/gh/dromara/hutool/branch/v5-master/graph/badge.svg" />
-	</a>
-	<a target="_blank" href="https://gitter.im/hutool/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">
-		<img src="https://badges.gitter.im/hutool/Lobby.svg" />
-	</a>
-	<a target="_blank" href='https://gitee.com/dromara/hutool/stargazers'>
-		<img src='https://gitee.com/dromara/hutool/badge/star.svg?theme=gvp' alt='star'/>
-	</a>
-	<a target="_blank" href='https://github.com/dromara/hutool'>
-		<img src="https://img.shields.io/github/stars/dromara/hutool.svg?style=social" alt="github star"/>
-	</a>
-</p>
-
-<br/>
-
-[//]: # (<p align="center">)
-
-[//]: # (	<a href="https://qm.qq.com/cgi-bin/qm/qr?k=QtsqXLkHpLjE99tkre19j6pjPMhSay1a&jump_from=webapi">)
-
-[//]: # (	<img src="https://img.shields.io/badge/QQ%E7%BE%A4%E2%91%A6-715292493-orange"/></a>)
-
-[//]: # (</p>)
-
-[//]: # (-------------------------------------------------------------------------------)
-
-[//]: # (<p align="center">)
-
-[//]: # (	<a href="#"><img style="width: 45%" alt="" src="https://plus.hutool.cn/images/zanzhu.jpg"/></a>)
-
-[//]: # (</p>)
 
 -------------------------------------------------------------------------------
 
@@ -100,31 +38,6 @@
 
 -------------------------------------------------------------------------------
 
-[//]: # (## 🪙支持Hutool)
-
-[//]: # ()
-[//]: # (### 💳捐赠)
-
-[//]: # ()
-[//]: # (如果你觉得Hutool不错，可以捐赠请维护者吃包辣条~，在此表示感谢^_^。)
-
-[//]: # ()
-[//]: # ([Gitee上捐赠]&#40;https://gitee.com/dromara/hutool&#41;)
-
-[//]: # ()
-[//]: # (### 👕周边商店)
-
-[//]: # ()
-[//]: # (你也可以通过购买Hutool的周边商品来支持Hutool维护哦！)
-
-[//]: # ()
-[//]: # (我们提供了印有Hutool Logo的周边商品，欢迎点击购买支持：)
-
-[//]: # ()
-[//]: # (👉 [Hutool 周边商店]&#40;https://market.m.taobao.com/apps/market/content/index.html?wh_weex=true&contentId=331724720170&#41; 👈)
-
-[//]: # (-------------------------------------------------------------------------------)
-
 ## 📦安装
 
 ### 🍊Maven
@@ -164,7 +77,7 @@ implementation 'cn.hutool.plus:hutool-all:5.8.30'
 
 -------------------------------------------------------------------------------
 
-### ⌨️使用例子
+### ⌨️使用
 
 #### 1. Bean拷贝：自定义属性拷贝 与 默认属性转换
 
@@ -216,7 +129,6 @@ public void toBeanTest1(){
 
 	final SysUserVO sysUserVO = BeanUtil.toBean(sysUser, SysUserVO.class, (targetProp, source, target, sourceValue) -> {
 		// 相同属性不同类型：把属性值进行逻辑运算，并赋值给目标属性
-		//targetProp.set(source::getValue, target::getValue, sourceValue.toString() + "kg/㎡");
 		targetProp.set(source::getValue, target::getValue, Double.valueOf(sourceValue.toString()) + 1);
 		// 不同属性，不同类型：直接赋值给目标属性
 		targetProp.set(source::getCustomerId, target::getOrgId, sourceValue);
@@ -336,8 +248,7 @@ Hutool-Plus的源码分为两个分支，功能如下：
 
 提交问题反馈请说明正在使用的JDK版本呢、Hutool-Plus版本和相关依赖库版本。
 
-- [Gitee issue](https://gitee.com/dromara/hutool/issues)
-- [Github issue](https://github.com/dromara/hutool/issues)
+- [Gitee issue](https://gitee.com/ssoss/hutool/issues)
 
 
 ### 🧬贡献代码的步骤
@@ -359,14 +270,6 @@ Hutool-Plus欢迎任何人为Hutool-Plus添砖加瓦，贡献代码。需要提�
 4. 请pull request到`v5-dev`分支。Hutool-Plus在5.x版本后使用了新的分支：`v5-master`是主分支，表示已经发布中央库的版本，这个分支不允许pr，也不允许修改。
 5. 我们如果关闭了你的issue或pr，请不要诧异，这是我们保持问题处理整洁的一种方式，你依旧可以继续讨论，当有讨论结果时我们会重新打开。
 
-[//]: # (### 📖文档源码地址)
-
-[//]: # ()
-[//]: # ([文档源码地址]&#40;https://gitee.com/loolly_admin/hutool-doc-handy&#41; 点击前往添砖加瓦)
-
 -------------------------------------------------------------------------------
 
 ## ⭐欢迎Star Hutool-Plus
-
-[//]: # ()
-[//]: # ([![Stargazers over time]&#40;https://starchart.cc/dromara/hutool.svg&#41;]&#40;https://starchart.cc/dromara/hutool&#41;)
