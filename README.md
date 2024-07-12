@@ -100,22 +100,6 @@
 
 -------------------------------------------------------------------------------
 
-## 📝文档
-
-[**🌎English Documentation**](README-EN.md)
-
--------------------------------------------------------------------------------
-
-[📘中文文档](https://doc.hutool.cn/pages/index/)
-
-[📘中文备用文档](https://plus.hutool.cn/)
-
-[📙参考API](https://apidoc.gitee.com/dromara/hutool/)
-
-[🎬视频介绍](https://www.bilibili.com/video/BV1bQ4y1M7d9?p=2)
-
--------------------------------------------------------------------------------
-
 [//]: # (## 🪙支持Hutool)
 
 [//]: # ()
@@ -382,7 +366,7 @@ Hutool-Plus欢迎任何人为Hutool-Plus添砖加瓦，贡献代码。需要提�
 
 -------------------------------------------------------------------------------
 
-[//]: # (## ⭐Star Hutool-Plus)
+## ⭐欢迎Star Hutool-Plus
 
 [//]: # ()
 [//]: # ([![Stargazers over time]&#40;https://starchart.cc/dromara/hutool.svg&#41;]&#40;https://starchart.cc/dromara/hutool&#41;)
