@@ -8,10 +8,10 @@
 
 	<groupId>cn.hutool-plus</groupId>
 	<artifactId>hutool-parent</artifactId>
-	<version>5.8.30-SNAPSHOT</version>
+	<version>5.8.29</version>
 	<name>hutool</name>
-	<description>Hutool是一个小而全的Java工具类库，通过静态方法封装，降低相关API的学习成本，提高工作效率，使Java拥有函数式语言般的优雅，让Java语言也可以“甜甜的”。</description>
-	<url>https://github.com/dromara/hutool</url>
+	<description>Hutool-Plus是一个小而全的Java工具类库，通过静态方法封装，降低相关API的学习成本，提高工作效率，使Java拥有函数式语言般的优雅，让Java语言也可以“甜甜的”。</description>
+	<url>https://gitee.com/ssoss/hutool-plus</url>
 
 	<modules>
 		<module>hutool-all</module>
@@ -41,7 +41,7 @@
 		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
 
-		<Automatic-Module-Name>cn.hutool</Automatic-Module-Name>
+		<Automatic-Module-Name>cn.hutool-plus</Automatic-Module-Name>
 
 		<!-- versions -->
 		<compile.version>8</compile.version>
@@ -65,10 +65,29 @@
 		</dependency>
 	</dependencies>
 
-	<issueManagement>
-		<system>Github Issue</system>
-		<url>https://github.com/dromara/hutool/issues</url>
-	</issueManagement>
+
+	<developers>
+		<developer>
+			<id>ssoss</id>
+			<name>lingengkeng</name>
+			<email>lingengkeng007@163.com</email>
+			<roles>
+				<role>Project Manager</role>
+				<role>Architect</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>https://gitee.com/ssoss/hutool-plus.git</connection>
+		<developerConnection>scm:git:ssh://git@gitee.com:ssoss/hutool-plus.git</developerConnection>
+		<url>https://gitee.com/ssoss/hutool-plus.git</url>
+	</scm>
+
+	<!--	<issueManagement>-->
+	<!--		<system>Github Issue</system>-->
+	<!--		<url>https://github.com/dromara/hutool/issues</url>-->
+	<!--	</issueManagement>-->
 
 	<licenses>
 		<license>
@@ -77,67 +96,76 @@
 		</license>
 	</licenses>
 
-	<developers>
-		<developer>
-			<name>Looly</name>
-			<email>loolly@gmail.com</email>
-		</developer>
-	</developers>
-
-	<scm>
-		<connection>scm:git@github.com:dromara/hutool.git</connection>
-		<developerConnection>scm:git@github.com:dromara/hutool.git</developerConnection>
-		<url>git@github.com:dromara/hutool.git</url>
-	</scm>
+	<!--	<scm>-->
+	<!--		<connection>scm:git@github.com:dromara/hutool.git</connection>-->
+	<!--		<developerConnection>scm:git@github.com:dromara/hutool.git</developerConnection>-->
+	<!--		<url>git@github.com:dromara/hutool.git</url>-->
+	<!--	</scm>-->
 
 	<build>
 		<plugins>
+
+			<!--   central发布插件    -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
+				<groupId>org.sonatype.central</groupId>
+				<artifactId>central-publishing-maven-plugin</artifactId>
+				<version>0.4.0</version>
+				<extensions>true</extensions>
 				<configuration>
-					<source>${compile.version}</source>
-					<target>${compile.version}</target>
-					<compilerArgument>-Xlint:unchecked</compilerArgument>
+					<publishingServerId>ssoss</publishingServerId>
+					<tokenAuth>true</tokenAuth>
 				</configuration>
 			</plugin>
+			<!--   source源码插件 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.3.0</version>
-				<configuration>
-					<archive>
-						<index>true</index>
-						<manifest>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
-						</manifest>
-						<manifestEntries>
-							<Build-OS>${os.name}</Build-OS>
-							<Built-By>${user.name}</Built-By>
-							<Build-Jdk>${java.version}</Build-Jdk>
-							<Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
-							<Automatic-Module-Name>${Automatic-Module-Name}</Automatic-Module-Name>
-						</manifestEntries>
-					</archive>
-				</configuration>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
-			<!-- Javadoc -->
+			<!--   javadoc插件 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.5.0</version>
+				<version>2.9.1</version>
 				<executions>
 					<execution>
-						<phase>package</phase>
+						<id>attach-javadocs</id>
 						<goals>
 							<goal>jar</goal>
 						</goals>
 					</execution>
 				</executions>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<configuration>
+					<executable>D:\SOFTWARE\GnuPG\bin\gpg.exe</executable>
+					<keyname>ssoss</keyname>
+				</configuration>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
+
 
 	<profiles>
 		<profile>
