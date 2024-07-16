@@ -46,9 +46,9 @@
 ```xml
 <dependency>
     <groupId>io.gitee.ssoss</groupId>
-    <artifactId>hutool-all</artifactId>
-    <version>5.8.30</version>
-</dependency>
+    <artifactId>hutool-plus-all</artifactId>
+    <version>5.8.29</version>
+ </dependency>
 ```
 
 ### 🍐Gradle
