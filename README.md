@@ -53,7 +53,7 @@
 
 ### 🍐Gradle
 ```
-implementation 'cn.hutool.plus:hutool-all:5.8.30'
+implementation 'io.gitee.ssoss:hutool-plus-all:5.8.29'
 ```
 
 ### 📥下载jar
