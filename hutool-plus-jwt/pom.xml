@@ -7,7 +7,7 @@
 	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>cn.hutool-plus</groupId>
+		<groupId>io.gitee.ssoss</groupId>
 		<artifactId>hutool-parent</artifactId>
 		<version>5.8.29</version>
 	</parent>
@@ -26,12 +26,12 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
+			<groupId>io.gitee.ssoss</groupId>
 			<artifactId>hutool-plus-json</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
+			<groupId>io.gitee.ssoss</groupId>
 			<artifactId>hutool-plus-crypto</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>

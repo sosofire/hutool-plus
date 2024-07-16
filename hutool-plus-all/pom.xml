@@ -7,7 +7,7 @@
 	<packaging>jar</packaging>
 
 	<parent>
-		<groupId>cn.hutool-plus</groupId>
+		<groupId>io.gitee.ssoss</groupId>
 		<artifactId>hutool-parent</artifactId>
 		<version>5.8.29</version>
 	</parent>
@@ -19,98 +19,98 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-core</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-core</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-aop</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-aop</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-bloomFilter</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-bloomFilter</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-cache</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-cache</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-crypto</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-crypto</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-db</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-db</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-dfa</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-dfa</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-extra</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-extra</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-http</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-http</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-log</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-log</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
+			<groupId>io.gitee.ssoss</groupId>
 			<artifactId>hutool-plus-script</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-setting</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-setting</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-system</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-system</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-cron</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-cron</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-json</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-json</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-poi</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-poi</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-captcha</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-captcha</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-socket</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-socket</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cn.hutool-plus</groupId>
-			<artifactId>hutool-jwt</artifactId>
+			<groupId>io.gitee.ssoss</groupId>
+			<artifactId>hutool-plus-jwt</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 	</dependencies>

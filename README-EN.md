@@ -148,7 +148,7 @@ We provide the T-Shirt and Sweater with Hutool Logo, please visit the shop：
 ### 🍊Maven
 ```xml
 <dependency>
-    <groupId>cn.hutool-plus</groupId>
+    <groupId>io.gitee.ssoss</groupId>
     <artifactId>hutool-all</artifactId>
     <version>5.8.30</version>
 </dependency>
