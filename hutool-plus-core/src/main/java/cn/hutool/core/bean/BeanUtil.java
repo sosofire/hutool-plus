@@ -539,8 +539,9 @@ public class BeanUtil {
 	 * @param clazz            目标的Bean类型
 	 * @param beanCopyConsumer BeanCopy消费者，用于自定义字段的转换规则
 	 * @return Bean对象
+	 * @author lingengkeng
 	 */
-	public static <S, T> T toBean(S source, Class<T> clazz, BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer) {
+	public static <S, T> T toBean(S source, Class<T> clazz, BeanCopyConsumer<S, T> beanCopyConsumer) {
 		return toBean(source, clazz, beanCopyConsumer, null);
 	}
 
@@ -601,8 +602,9 @@ public class BeanUtil {
 	 * @param beanCopyConsumer BeanCopy消费者，用于自定义字段的转换规则
 	 * @param options          属性拷贝选项
 	 * @return Bean对象
+	 * @author lingengkeng
 	 */
-	public static <S, T> T toBean(S source, Class<T> clazz, BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer, CopyOptions options) {
+	public static <S, T> T toBean(S source, Class<T> clazz, BeanCopyConsumer<S, T> beanCopyConsumer, CopyOptions options) {
 		return toBean(source, () -> ReflectUtil.newInstanceIfPossible(clazz), beanCopyConsumer, options);
 	}
 
@@ -636,8 +638,9 @@ public class BeanUtil {
 	 * @param beanCopyConsumer BeanCopy消费者，用于自定义字段的转换规则
 	 * @param options          属性拷贝选项
 	 * @return Bean对象
+	 * @author lingengkeng
 	 */
-	public static <S, T> T toBean(S source, Supplier<T> targetSupplier, BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer, CopyOptions options) {
+	public static <S, T> T toBean(S source, Supplier<T> targetSupplier, BeanCopyConsumer<S, T> beanCopyConsumer, CopyOptions options) {
 		if (null == source || null == targetSupplier) {
 			return null;
 		}
@@ -865,8 +868,9 @@ public class BeanUtil {
 	 * @param target               目标Bean对象
 	 * @param beanCopyConsumer     属性复制函数
 	 * @param copyOptions          拷贝选项，见 {@link CopyOptions}
+	 * @author lingengkeng
 	 */
-	public static <S, T> void copyProperties(S source, T target, BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer, CopyOptions copyOptions) {
+	public static <S, T> void copyProperties(S source, T target, BeanCopyConsumer<S, T> beanCopyConsumer, CopyOptions copyOptions) {
 		if (null == source) {
 			return;
 		}
@@ -917,7 +921,7 @@ public class BeanUtil {
 	 * @return 复制后的List
 	 * @author lingengkeng
 	 */
-	public static <S, T> List<T> copyToList(Collection<S> collection, Class<T> targetType, BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer, CopyOptions copyOptions) {
+	public static <S, T> List<T> copyToList(Collection<S> collection, Class<T> targetType, BeanCopyConsumer<S, T> beanCopyConsumer, CopyOptions copyOptions) {
 		if (null == collection) {
 			return null;
 		}
@@ -963,7 +967,7 @@ public class BeanUtil {
 	 * @return 复制后的List
 	 * @author lingengkeng
 	 */
-	public static <S, T> List<T> copyToList(Collection<S> collection, Class<T> targetType, BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer) {
+	public static <S, T> List<T> copyToList(Collection<S> collection, Class<T> targetType, BeanCopyConsumer<S, T> beanCopyConsumer) {
 		return copyToList(collection, targetType, beanCopyConsumer, CopyOptions.create());
 	}
 

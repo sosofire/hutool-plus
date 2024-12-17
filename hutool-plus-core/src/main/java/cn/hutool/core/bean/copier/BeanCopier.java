@@ -53,8 +53,9 @@ public class BeanCopier<S, T> implements Copier<T>, Serializable {
 	 * @param beanCopyConsumer 属性拷贝函数
 	 * @param copyOptions 拷贝属性选项
 	 * @return BeanCopier
+	 * @author lingengkeng
 	 */
-	public static <S, T> BeanCopier<S, T> create(S source, T target, BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer, CopyOptions copyOptions) {
+	public static <S, T> BeanCopier<S, T> create(S source, T target, BeanCopyConsumer<S, T> beanCopyConsumer, CopyOptions copyOptions) {
 		return create(source, target, target.getClass(), beanCopyConsumer, copyOptions);
 	}
 
@@ -69,8 +70,9 @@ public class BeanCopier<S, T> implements Copier<T>, Serializable {
 	 * @param beanCopyConsumer 属性拷贝函数
 	 * @param copyOptions 拷贝属性选项
 	 * @return BeanCopier
+	 * @author lingengkeng
 	 */
-	public static <S, T> BeanCopier<S, T> create(S source, T target, Type destType, BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer, CopyOptions copyOptions) {
+	public static <S, T> BeanCopier<S, T> create(S source, T target, Type destType, BeanCopyConsumer<S, T> beanCopyConsumer, CopyOptions copyOptions) {
 		return new BeanCopier<>(source, target, destType, beanCopyConsumer, copyOptions);
 	}
 
@@ -83,8 +85,9 @@ public class BeanCopier<S, T> implements Copier<T>, Serializable {
 	 * @param beanCopyConsumer    属性拷贝函数，用于定制拷贝行为。
 	 * @param copyOptions         拷贝属性选项，用于控制拷贝过程中的行为。
 	 * @throws IllegalArgumentException 如果 source 或 target 为 null，则抛出此异常。
+	 * @author lingengkeng
 	 */
-	public BeanCopier(S source, T target, Type targetType, BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer, CopyOptions copyOptions) {
+	public BeanCopier(S source, T target, Type targetType, BeanCopyConsumer<S, T> beanCopyConsumer, CopyOptions copyOptions) {
 		Assert.notNull(source, "Source bean must be not null!");
 		Assert.notNull(target, "Target bean must be not null!");
 		Copier<T> copier;

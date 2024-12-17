@@ -9,6 +9,8 @@ import cn.hutool.core.util.StrUtil;
 import java.io.Serializable;
 import java.lang.invoke.MethodHandleInfo;
 import java.lang.invoke.SerializedLambda;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 
 /**
  * Lambda相关工具类
@@ -19,6 +21,12 @@ import java.lang.invoke.SerializedLambda;
 public class LambdaUtil {
 
 	private static final WeakConcurrentMap<String, SerializedLambda> cache = new WeakConcurrentMap<>();
+	/**
+	 * 缓存lambda表达式的参数值，用于获取参数值
+	 * key 为 类名
+	 * value 为 参数值
+	 */
+	private static final WeakConcurrentMap<String, Object> cacheSerializedLambdaArgs = new WeakConcurrentMap<>();
 
 	/**
 	 * 通过对象的方法或类的静态方法引用，获取lambda实现类
@@ -175,6 +183,18 @@ public class LambdaUtil {
 		return BeanUtil.getFieldName(getMethodName(func));
 	}
 
+	/**
+	 * 获取字段值，支持通过字段名或字段索引获取字段值，索引从0开始。
+	 * @param func 受限与该Lanbda表达式入参个数
+	 * @param index 第几个lambda入参参数，从0开始
+	 * @return
+	 * @param <T>
+	 * @throws IllegalArgumentException
+	 */
+	public static <T> Object getSerializedLambdaArgs(Func0<T> func, int index) throws IllegalArgumentException {
+		return resolveArgs(func, index);
+	}
+
 	//region Private methods
 	/**
 	 * 检查是否为支持的类型
@@ -203,6 +223,35 @@ public class LambdaUtil {
 	 */
 	private static SerializedLambda _resolve(Serializable func) {
 		return cache.computeIfAbsent(func.getClass().getName(), (key) -> ReflectUtil.invoke(func, "writeReplace"));
+	}
+
+	/**
+	 * 解析lambda表达式,获取表达式入参对象,放进缓存。
+	 * <p>
+	 *     获取函数入参对象 index表示第几个入参对象
+	 * </p>
+	 *
+	 * @author lingengkeng
+	 */
+	private static Object resolveArgs(Serializable func, int index)  {
+		// 解析 lambda 表达式 对象的writeReplace方法
+		SerializedLambda serializedLambda = (SerializedLambda) ReflectUtil.invoke(func, "writeReplace");
+		// 获取捕获的对象
+		try {
+			Field capturedArgsField = SerializedLambda.class.getDeclaredField("capturedArgs");
+			capturedArgsField.setAccessible(true);
+			Object[] capturedArgs = (Object[]) capturedArgsField.get(serializedLambda);
+
+			// 打印捕获的对象
+//			for (int i = 0; i < capturedArgs.length; i++) {
+//				System.out.println("Captured Argument " + i + ": " + capturedArgs[i]);
+//			}
+			Object capturedArg = capturedArgs[index];
+			return cacheSerializedLambdaArgs.computeIfAbsent(capturedArg.getClass().getName(), (key) -> capturedArg);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	//endregion
 }

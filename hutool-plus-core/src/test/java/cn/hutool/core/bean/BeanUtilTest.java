@@ -34,6 +34,129 @@ import java.util.stream.Collectors;
  */
 public class BeanUtilTest {
 
+	/**
+	 * 源对象
+	 */
+	@Data
+	static class SysUser implements Serializable {
+
+		private static final long serialVersionUID = 1L;
+
+		private String depId;
+
+		private String customerId;
+
+		/**
+		 * Double类型的value
+		 */
+		private Double value;
+	}
+
+	/**
+	 * 目标对象
+	 */
+	@Data
+	@Setter
+	static class SysUserVO implements Serializable {
+
+		private static final long serialVersionUID = 1L;
+
+		private Long depart;
+
+		private Double orgId;
+
+		private Double value;
+	}
+
+	/**
+	 * 测试自定义转换器
+	 * @author lingengkeng
+	 */
+	@Test
+	public void toBeanTest1(){
+		// 创建源对象
+		final SysUser sysUser = new SysUser();
+		sysUser.setDepId("123");
+		sysUser.setCustomerId("456");
+		sysUser.setValue(1d);
+
+		final SysUserVO sysUserVO = BeanUtil.toBean(sysUser, SysUserVO.class, (source, target) -> {
+			target.setDepart(666L);
+			target.setOrgId(Double.valueOf(source.getCustomerId()));
+		});
+		Assert.assertEquals(Integer.valueOf(sysUser.getCustomerId()), Integer.valueOf(sysUserVO.getOrgId().intValue()));
+	}
+
+	/**
+	 * 测试自定义转换器
+	 * @author lingengkeng
+	 */
+	@Test
+	public void copyToListTest(){
+		// 创建源对象
+		final SysUser sysUser = new SysUser();
+		sysUser.setDepId("123");
+		sysUser.setCustomerId("456");
+		sysUser.setValue(1d);
+
+		final SysUser sysUser1 = new SysUser();
+		sysUser1.setDepId("3333");
+		sysUser1.setCustomerId("666");
+		sysUser1.setValue(2d);
+
+		// 列表
+		List<SysUser> sysUserList = Arrays.asList(sysUser, sysUser1);
+
+		// 列表中的对象属性值转换
+		List<SysUserVO> sysUserVOList = BeanUtil.copyToList(sysUserList, SysUserVO.class, (source, target) -> {
+			target.setOrgId(Double.valueOf(source.getCustomerId()));
+//			target.setValue(String.valueOf(source.getValue() + 1));
+		});
+		Assert.assertEquals(Integer.valueOf(sysUser.getCustomerId()), Integer.valueOf(sysUserVOList.get(0).getOrgId().intValue()));
+	}
+
+	/**
+	 * 对象转换
+	 * @author lingengkeng
+	 */
+	@Test
+	public void toBeanTest2(){
+		final Issue1687Test.SysUserFb sysUserFb = new Issue1687Test.SysUserFb();
+		sysUserFb.setDepId("123");
+		sysUserFb.setCustomerId("456");
+		sysUserFb.setValue(1d);
+
+		// 对象属性值转换
+		final Issue1687Test.SysUser sysUser = BeanUtil.toBean(sysUserFb, Issue1687Test.SysUser.class, (source, target) -> {
+			target.setOrgId(Double.valueOf(source.getDepId()));
+			target.setValue(source.getValue() + 1 +"kg/㎡");
+		});
+
+		Assert.assertNull(sysUser.getDepart());
+		Assert.assertEquals(Double.valueOf(sysUserFb.getDepId()), sysUser.getOrgId());
+	}
+
+	/**
+	 * 列表转换
+	 * @author lingengkeng
+	 */
+	@Test
+	public void copyToListTest2(){
+		final Issue1687Test.SysUserFb sysUserFb = new Issue1687Test.SysUserFb();
+		sysUserFb.setDepId("123");
+		sysUserFb.setCustomerId("456");
+		sysUserFb.setValue(1d);
+
+		List<Issue1687Test.SysUserFb> sysUserFbList = Arrays.asList(sysUserFb);
+
+		List<Issue1687Test.SysUser> sysUsers = BeanUtil.copyToList(sysUserFbList, Issue1687Test.SysUser.class, (source, target) -> {
+			target.setOrgId(Double.valueOf(source.getDepId()));
+			target.setValue(source.getValue() + 1 +"kg/㎡");
+		});
+
+		Assert.assertEquals(Double.valueOf(sysUserFb.getDepId()), sysUsers.get(0).getOrgId());
+	}
+
 	@Test
 	public void isBeanTest() {
 

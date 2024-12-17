@@ -30,45 +30,6 @@ public class Issue1687Test {
 	}
 
 	@Test
-	public void toBeanTest1(){
-		final SysUserFb sysUserFb = new SysUserFb();
-		sysUserFb.setDepId("123");
-		sysUserFb.setCustomerId("456");
-		sysUserFb.setValue(1d);
-
-		// 对象属性值转换
-		final SysUser sysUser = BeanUtil.toBean(sysUserFb, SysUser.class, (targetProp, source, target, sourceValue) -> {
-			// 相同属性不同类型：把属性值进行逻辑运算，并赋值给目标属性
-//			targetProp.set(source::getValue, target::getValue, Double.valueOf(sourceValue.toString()) + 1);
-			targetProp.set(source::getValue, target::getValue, sourceValue.toString() + "kg/㎡");
-			// 不同属性，不同类型：直接赋值给目标属性
-			targetProp.set(source::getCustomerId, target::getOrgId, sourceValue);
-        });
-
-		Assert.assertNull(sysUser.getDepart());
-		Assert.assertEquals(Double.valueOf(sysUserFb.getCustomerId()), sysUser.getOrgId());
-	}
-
-	@Test
-	public void copyToListTest(){
-		final SysUserFb sysUserFb = new SysUserFb();
-		sysUserFb.setDepId("123");
-		sysUserFb.setCustomerId("456");
-		sysUserFb.setValue(1d);
-
-		List<SysUserFb> sysUserFbList = Arrays.asList(sysUserFb);
-		// 列表中的对象属性值转换
-		List<SysUser> sysUsers = BeanUtil.copyToList(sysUserFbList, SysUser.class, (targetProp, source, target, sourceValue) -> {
-			// 不同属性，不同类型：直接赋值给目标属性
-			targetProp.set(source::getCustomerId, target::getOrgId, sourceValue);
-			// 相同属性不同类型：把属性值进行逻辑运算，并赋值给目标属性
-			targetProp.set(source::getValue, target::getValue, Double.valueOf(sourceValue.toString()) + 1);
-		});
-
-		Assert.assertEquals(Double.valueOf(sysUserFb.getCustomerId()), sysUsers.get(0).getOrgId());
-	}
-
-	@Test
 	public void toBeanTest2(){
 		final SysUserFb sysUserFb = new SysUserFb();
 		sysUserFb.setDepId("123");

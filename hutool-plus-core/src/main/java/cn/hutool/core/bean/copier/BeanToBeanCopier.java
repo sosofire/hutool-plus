@@ -21,7 +21,7 @@ public class BeanToBeanCopier<S, T> extends AbsCopier<S, T> {
 	/**
 	 * 目标属性值设置器
 	 */
-	private final BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer;
+	private final BeanCopyConsumer<S, T> beanCopyConsumer;
 
 	/**
 	 * 目标的类型（用于泛型类注入）
@@ -35,8 +35,9 @@ public class BeanToBeanCopier<S, T> extends AbsCopier<S, T> {
 	 * @param target      目标Bean对象
 	 * @param targetType  目标泛型类型
 	 * @param copyOptions 拷贝选项
+	 * @author lingengkeng
 	 */
-	public BeanToBeanCopier(S source, T target, Type targetType, BeanCopyConsumer<TargetProp, S, T, Object> beanCopyConsumer, CopyOptions copyOptions) {
+	public BeanToBeanCopier(S source, T target, Type targetType, BeanCopyConsumer<S, T> beanCopyConsumer, CopyOptions copyOptions) {
 		super(source, target, copyOptions);
 		this.targetType = targetType;
 		this.beanCopyConsumer = beanCopyConsumer;
@@ -93,24 +94,33 @@ public class BeanToBeanCopier<S, T> extends AbsCopier<S, T> {
 			// 目标赋值
 			tDesc.setValue(this.target, sValue, copyOptions.ignoreNullValue, copyOptions.ignoreError, copyOptions.override);
 
-			// 自定义字段转换
-			if (null != beanCopyConsumer) {
-				sValue = tDesc.handleFieldValue(sValue, copyOptions.ignoreNullValue, copyOptions.ignoreError, copyOptions.override);
-				if (null == sValue) {
-					return;
-				}
-
-				TargetProp targetProp = new TargetProp(sFieldName);
-				beanCopyConsumer.accept(targetProp, source, target, sValue);
-				final PropDesc targetDesc = this.copyOptions.findPropDesc(targetPropDescMap, targetProp.getTargetFieldName());
-				// 如果找到目标属性描述
-				if (null != targetDesc) {
-					// 设置目标对象的字段值
-					targetDesc.setValue(this.target, targetProp.getTargetFieldValue());
-				}
-
-			}
+//			// 自定义字段转换
+//			if (null != beanCopyConsumer) {
+//				sValue = tDesc.handleFieldValue(sValue, copyOptions.ignoreNullValue, copyOptions.ignoreError, copyOptions.override);
+//				if (null == sValue) {
+//					return;
+//				}
+//
+//				TargetProp targetProp = new TargetProp();
+//				beanCopyConsumer.accept(source, target);
+////				targetProp.forEach((targetFieldName, targetFieldValue) -> {
+////					// 目标属性描述
+////					final PropDesc targetDesc = this.copyOptions.findPropDesc(targetPropDescMap, (String) targetFieldName);
+////					// 如果找到目标属性描述
+////					if (null != targetDesc) {
+////						// 设置目标对象的字段值
+////						targetDesc.setValue(this.target, targetFieldValue);
+////					}
+////				});
+//
+//			}
 		});
+
+		// 自定义字段转换
+		if (null != beanCopyConsumer) {
+			beanCopyConsumer.accept(source, target);
+		}
+
 		return this.target;
 	}
 }

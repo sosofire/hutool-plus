@@ -89,6 +89,10 @@ static class SysUserVO implements Serializable {
 	private String value;
 }
 
+/**
+ * 测试自定义转换器
+ * @author lingengkeng
+ */
 @Test
 public void toBeanTest1(){
 	// 创建源对象
@@ -97,19 +101,24 @@ public void toBeanTest1(){
 	sysUser.setCustomerId("456");
 	sysUser.setValue(1d);
 
-	final SysUserVO sysUserVO = BeanUtil.toBean(sysUser, SysUserVO.class, (targetProp, source, target, sourceValue) -> {
-		// 相同属性不同类型：把属性值进行逻辑运算，并赋值给目标属性
-		targetProp.set(source::getValue, target::getValue, Double.valueOf(sourceValue.toString()) + 1);
-		// 不同属性，不同类型：直接赋值给目标属性
-		targetProp.set(source::getCustomerId, target::getOrgId, sourceValue);
+	final SysUserVO sysUserVO = BeanUtil.toBean(sysUser, SysUserVO.class, (source, target) -> {
+		target.setDepart(666L);
+//			target.setValue(source.getValue());
+		target.setOrgId(Double.valueOf(source.getCustomerId()));
 	});
+	Assert.assertEquals(Integer.valueOf(sysUser.getCustomerId()), Integer.valueOf(sysUserVO.getOrgId().intValue()));
 }
+
 
 ```
 
 #### 2. Bean列表拷贝：自定义属性拷贝 与 默认属性转换
 
 ```Java
+	/**
+ * 测试自定义转换器
+ * @author lingengkeng
+ */
 @Test
 public void copyToListTest(){
 	// 创建源对象
@@ -117,16 +126,21 @@ public void copyToListTest(){
 	sysUser.setDepId("123");
 	sysUser.setCustomerId("456");
 	sysUser.setValue(1d);
-	// 列表
-	List<SysUser> sysUserList = Arrays.asList(sysUser);
-	
+
+	final SysUser sysUser1 = new SysUser();
+	sysUser1.setDepId("3333");
+	sysUser1.setCustomerId("666");
+	sysUser1.setValue(2d);
+
+	// 用户列表
+	List<SysUser> sysUserList = Arrays.asList(sysUser, sysUser1);
+
 	// 列表中的对象属性值转换
-	List<SysUserVO> sysUserVOList = BeanUtil.copyToList(sysUserList, SysUserVO.class, (targetProp, source, target, sourceValue) -> {
-		// 不同属性，不同类型：直接赋值给目标属性
-		targetProp.set(source::getCustomerId, target::getOrgId, sourceValue);
-		// 相同属性不同类型：把属性值进行逻辑运算，并赋值给目标属性
-		targetProp.set(source::getValue, target::getValue, Double.valueOf(sourceValue.toString()) + 1);
+	List<SysUserVO> sysUserVOList = BeanUtil.copyToList(sysUserList, SysUserVO.class, (source, target) -> {
+		target.setOrgId(Double.valueOf(source.getCustomerId()));
+//			target.setValue(String.valueOf(source.getValue() + 1));
 	});
+	Assert.assertEquals(Integer.valueOf(sysUser.getCustomerId()), Integer.valueOf(sysUserVOList.get(0).getOrgId().intValue()));
 }
 ```
 
@@ -199,7 +213,37 @@ public void valueSumTest() {
 	Assert.assertEquals(30, valuesSum, 0);
 }
 ```
+### 5.计算相关类
 
+```Java
+@Test
+public void calcTest() {
+	// 在很多代码里面，如果参数是null，直接使用0(当分母为0时)，会导致程序异常，使用BigDecimalSupper，可以避免这个问题。
+	// 或者使用Optional，但是Optional在处理null值时，代码会更长，而且需要引入额外的依赖。
+	// BigDecimalSupper 可以处理null值，并且可以避免抛出异常，使得代码更加健壮。BigDecimal 不能处理null值，需要在代码中做空值判断。
+	Float a = null;
+	Double b = null;
+	Long c = null;
+	Integer t = null;
+	BigDecimal subtract = new BigDecimalSupper(a).setScale(2).divide(new BigDecimalSupper(a).setScale(2)).add(BigDecimalSupper.valueOf(b)).add(BigDecimalSupper.valueOf(1));
+	System.out.println(subtract);
+	
+			BigDecimal subtract1 = new BigDecimalSupper(c).multiply(new BigDecimalSupper(a)).add(BigDecimalSupper.valueOf(b)).add(BigDecimalSupper.valueOf(1));
+			System.out.println(subtract1);
+	
+			BigDecimal subtract2 = new BigDecimalSupper(t).subtract(new BigDecimalSupper(a)).add(BigDecimalSupper.valueOf(b)).add(BigDecimalSupper.valueOf(1));
+			System.out.println(subtract2);
+	
+	
+	//        System.out.println(new BigDecimalSupper(4.503).setScale(2).divide(new BigDecimalSupper(a)));
+	//        System.out.println(new BigDecimalSupper(4.503).setScale(2, RoundingMode.HALF_UP).divide(new BigDecimalSupper(4.503)));
+	
+			// BigDecimal 默认要求除法操作的结果必须是精确的，如果结果是一个无限循环小数，就会抛出异常。以下是报错示范
+	//        System.out.println(BigDecimal.valueOf(4.503).divide(BigDecimal.valueOf(0)));
+	//        System.out.println(BigDecimal.valueOf(4.503).setScale(2).divide(BigDecimal.valueOf(4.503)));
+
+}
+```
 
 -------------------------------------------------------------------------------
 
