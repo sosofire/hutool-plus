@@ -17,7 +17,7 @@
 <dependency>
     <groupId>io.gitee.ssoss</groupId>
     <artifactId>hutool-plus-all</artifactId>
-    <version>5.8.29</version>
+    <version>5.8.30</version>
  </dependency>
 ```
 
