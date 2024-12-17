@@ -133,16 +133,16 @@ public class BigDecimalSupper extends BigDecimal {
 		return BigDecimalSupper.valueOf(divide);
 	}
 
-	public static BigDecimal valueOf(Long unscaledVal, int scale) {
-		return BigDecimal.valueOf(unscaledVal == null ? 0L : unscaledVal, scale);
+	public static BigDecimalSupper valueOf(Long unscaledVal, int scale) {
+		return new BigDecimalSupper(BigDecimalSupper.valueOf(unscaledVal == null ? 0L : unscaledVal, scale).toPlainString());
 	}
 
-	public static BigDecimal valueOf(Integer unscaledVal, int scale) {
-		return BigDecimal.valueOf(unscaledVal == null ? 0L : unscaledVal, scale);
+	public static BigDecimalSupper valueOf(Integer unscaledVal, int scale) {
+		return new BigDecimalSupper(BigDecimal.valueOf(unscaledVal == null ? 0L : unscaledVal, scale).toPlainString());
 	}
 
-	public static BigDecimal valueOf(Long val) {
-		return BigDecimal.valueOf(val == null ? 0L : val);
+	public static BigDecimalSupper valueOf(Long val) {
+		return new BigDecimalSupper(BigDecimal.valueOf(val == null ? 0L : val).toPlainString());
 	}
 
 	public static BigDecimal valueOf(Integer val) {
@@ -150,12 +150,16 @@ public class BigDecimalSupper extends BigDecimal {
 	}
 
 
-	public static BigDecimal valueOf(Double val) {
-		return BigDecimal.valueOf(val == null ? 0D : val);
+	public static BigDecimalSupper valueOf(Double val) {
+		return new BigDecimalSupper(BigDecimal.valueOf(val == null ? 0D : val).toPlainString());
 	}
 
-	public static BigDecimal valueOf(Float val) {
-		return BigDecimal.valueOf(val == null ? 0D : val);
+	public static BigDecimalSupper valueOf(Float val) {
+		return new BigDecimalSupper(BigDecimal.valueOf(val == null ? 0D : val).toPlainString());
+	}
+
+	public static BigDecimalSupper valueOf(double val) {
+		return new BigDecimalSupper(Double.toString(val));
 	}
 
 	public static BigDecimalSupper valueOf(BigDecimal val) {
@@ -191,6 +195,9 @@ public class BigDecimalSupper extends BigDecimal {
 
 		BigDecimal subtract2 = new BigDecimalSupper(t).subtract(new BigDecimalSupper(a)).add(BigDecimalSupper.valueOf(b)).add(BigDecimalSupper.valueOf(1));
 		System.out.println(subtract2);
+
+
+		System.out.println(BigDecimalSupper.valueOf(a).setScale(2).divide(BigDecimalSupper.valueOf(a)));
 
 
 //        System.out.println(new BigDecimalSupper(4.503).setScale(2).divide(new BigDecimalSupper(a)));
