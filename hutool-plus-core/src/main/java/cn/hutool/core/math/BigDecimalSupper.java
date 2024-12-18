@@ -7,26 +7,17 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.math.RoundingMode;
-/**
- * BigDecimal 封装，自动处理 null 值，减少了代码中的 null 检查，使代码更加简洁
- * <p>
- *     使用GPT比较BigDecimal与BigDecimalSupper:
- *      结论
- *      BigDecimalSupper 更适合写业务代码，特别是当业务逻辑中频繁处理 null 值且希望代码更加简洁和健壮时。
- *      BigDecimal 适用于对异常处理有严格要求和性能敏感的应用。
- *      根据具体的业务需求和场景选择合适的类，可以更好地平衡代码的简洁性、健壮性和性能。
- * </p>
- * @author lingengkeng
- */
+
 /**
  * BigDecimal 封装，自动处理 null 值、除法运算分母为零为null, 减少了代码中的 null 检查，使代码更加简洁
  * <p>
- *     使用GPT比较BigDecimal与BigDecimalSupper:
- *      结论
- *      BigDecimalSupper 更适合写业务代码，特别是当业务逻辑中频繁处理 null 值且希望代码更加简洁和健壮时。
- *      BigDecimal 适用于对异常处理有严格要求和性能敏感的应用。
- *      根据具体的业务需求和场景选择合适的类，可以更好地平衡代码的简洁性、健壮性和性能。
+ * 使用GPT比较BigDecimal与BigDecimalSupper:
+ * 结论
+ * BigDecimalSupper 更适合写业务代码，特别是当业务逻辑中频繁处理 null 值且希望代码更加简洁和健壮时。
+ * BigDecimal 适用于对异常处理有严格要求和性能敏感的应用。
+ * 根据具体的业务需求和场景选择合适的类，可以更好地平衡代码的简洁性、健壮性和性能。
  * </p>
+ *
  * @author lingengkeng
  */
 public class BigDecimalSupper extends BigDecimal {
@@ -134,28 +125,28 @@ public class BigDecimalSupper extends BigDecimal {
 	}
 
 	public static BigDecimalSupper valueOf(Long unscaledVal, int scale) {
-		return new BigDecimalSupper(BigDecimalSupper.valueOf(unscaledVal == null ? 0L : unscaledVal, scale).toPlainString());
+		return new BigDecimalSupper(Long.valueOf(unscaledVal == null ? 0L : unscaledVal), new MathContext(scale));
 	}
 
 	public static BigDecimalSupper valueOf(Integer unscaledVal, int scale) {
-		return new BigDecimalSupper(BigDecimal.valueOf(unscaledVal == null ? 0L : unscaledVal, scale).toPlainString());
+		return new BigDecimalSupper(Integer.valueOf(unscaledVal == null ? 0 : unscaledVal), new MathContext(scale));
 	}
 
 	public static BigDecimalSupper valueOf(Long val) {
-		return new BigDecimalSupper(BigDecimal.valueOf(val == null ? 0L : val).toPlainString());
+		return new BigDecimalSupper(Long.valueOf(val == null ? 0L : val));
 	}
 
-	public static BigDecimal valueOf(Integer val) {
-		return BigDecimal.valueOf(val == null ? 0L : val);
+	public static BigDecimalSupper valueOf(Integer val) {
+		return new BigDecimalSupper(Integer.toString(val == null ? 0 : val));
 	}
 
 
 	public static BigDecimalSupper valueOf(Double val) {
-		return new BigDecimalSupper(BigDecimal.valueOf(val == null ? 0D : val).toPlainString());
+		return new BigDecimalSupper(Double.toString(val == null ? 0D : val));
 	}
 
 	public static BigDecimalSupper valueOf(Float val) {
-		return new BigDecimalSupper(BigDecimal.valueOf(val == null ? 0D : val).toPlainString());
+		return new BigDecimalSupper(Float.toString(val == null ? 0F : val));
 	}
 
 	public static BigDecimalSupper valueOf(double val) {
@@ -163,6 +154,9 @@ public class BigDecimalSupper extends BigDecimal {
 	}
 
 	public static BigDecimalSupper valueOf(BigDecimal val) {
+		if (val == null || val.compareTo(BigDecimal.ZERO) == 0) {
+			return new BigDecimalSupper(BigDecimal.ZERO.toPlainString());
+		}
 		return new BigDecimalSupper(val.toPlainString());
 	}
 
@@ -177,35 +171,4 @@ public class BigDecimalSupper extends BigDecimal {
 		BigDecimal bigDecimal = super.setScale(newScale, roundingMode);
 		return BigDecimalSupper.valueOf(bigDecimal);
 	}
-
-
-//	public static void main(String[] args) {
-//		// 在很多代码里面，如果参数是null，直接使用0(当分母为0时)，会导致程序异常，使用BigDecimalSupper，可以避免这个问题。
-//		// 或者使用Optional，但是Optional在处理null值时，代码会更长，而且需要引入额外的依赖。
-//		// BigDecimalSupper 可以处理null值，并且可以避免抛出异常，使得代码更加健壮。BigDecimal 不能处理null值，需要在代码中做空值判断。
-//		Float a = null;
-//		Double b = null;
-//		Long c = null;
-//		Integer t = null;
-//		BigDecimal subtract = new BigDecimalSupper(a).setScale(2).divide(new BigDecimalSupper(a).setScale(2)).add(BigDecimalSupper.valueOf(b)).add(BigDecimalSupper.valueOf(1));
-//		System.out.println(subtract);
-//
-//		BigDecimal subtract1 = new BigDecimalSupper(c).multiply(new BigDecimalSupper(a)).add(BigDecimalSupper.valueOf(b)).add(BigDecimalSupper.valueOf(1));
-//		System.out.println(subtract1);
-//
-//		BigDecimal subtract2 = new BigDecimalSupper(t).subtract(new BigDecimalSupper(a)).add(BigDecimalSupper.valueOf(b)).add(BigDecimalSupper.valueOf(1));
-//		System.out.println(subtract2);
-//
-//
-//		System.out.println(BigDecimalSupper.valueOf(a).setScale(2).divide(BigDecimalSupper.valueOf(a)));
-//
-//
-////        System.out.println(new BigDecimalSupper(4.503).setScale(2).divide(new BigDecimalSupper(a)));
-////        System.out.println(new BigDecimalSupper(4.503).setScale(2, RoundingMode.HALF_UP).divide(new BigDecimalSupper(4.503)));
-//
-//		// BigDecimal 默认要求除法操作的结果必须是精确的，如果结果是一个无限循环小数，就会抛出异常。以下是报错示范
-////        System.out.println(BigDecimal.valueOf(4.503).divide(BigDecimal.valueOf(0)));
-////        System.out.println(BigDecimal.valueOf(4.503).setScale(2).divide(BigDecimal.valueOf(4.503)));
-//
-//	}
 }
