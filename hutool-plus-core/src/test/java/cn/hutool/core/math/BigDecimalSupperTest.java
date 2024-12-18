@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 
 /**
@@ -36,6 +37,37 @@ public class BigDecimalSupperTest {
 
 		BigDecimalSupper bigDecimalSupper = BigDecimalSupper.valueOf(new BigDecimalSupper(a)).setScale(2, RoundingMode.HALF_UP);
 		Assert.assertEquals(bigDecimalSupper.intValue(), 0);
+
+		BigDecimal sum = BigDecimalSupper.valueOf(a).divide(new BigDecimalSupper(3))
+
+			// 除以 null
+			.divide(null)
+			// 除以 变量null
+			.divide(a)
+			.divide(0)
+
+			// 乘以 null
+			.multiply(null)
+			// 乘以 变量null
+			.multiply(a)
+			.multiply(0)
+
+			// 加上 null
+			.add(null)
+			// 加上 变量null
+			.add(a)
+			.add(0)
+
+			// 减去 null
+			.subtract(null)
+			// 减去 变量null
+			.subtract(t)
+			.add(1)
+
+			.add(BigDecimalSupper.valueOf(3).divide(BigDecimalSupper.valueOf(a)))
+			.add(BigDecimalSupper.valueOf(a).multiply(BigDecimalSupper.valueOf(8)))
+			.add(BigDecimalSupper.valueOf(99).divide(BigDecimalSupper.valueOf(b))).add(BigDecimalSupper.valueOf(a)).divide(2);
+		Assert.assertEquals(sum.floatValue() + "", "0.5");
 
 //        System.out.println(new BigDecimalSupper(4.503).setScale(2).divide(new BigDecimalSupper(a)));
 //        System.out.println(new BigDecimalSupper(4.503).setScale(2, RoundingMode.HALF_UP).divide(new BigDecimalSupper(4.503)));
