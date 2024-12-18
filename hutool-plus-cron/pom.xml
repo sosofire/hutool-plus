@@ -9,7 +9,7 @@
 	<parent>
 		<groupId>io.gitee.ssoss</groupId>
 		<artifactId>hutool-parent</artifactId>
-		<version>5.8.30</version>
+		<version>5.8.31</version>
 	</parent>
 
 	<artifactId>hutool-plus-cron</artifactId>
