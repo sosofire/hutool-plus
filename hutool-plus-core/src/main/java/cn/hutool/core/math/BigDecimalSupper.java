@@ -48,7 +48,7 @@ public class BigDecimalSupper extends BigDecimal {
 	}
 
 	public BigDecimalSupper(Double val) {
-		super(val == null ? "0" : Double.toString(val));
+		super(val == null ? BigDecimal.ZERO.toString() : Double.toString(val));
 	}
 
 	public BigDecimalSupper(Float val) {
@@ -60,7 +60,7 @@ public class BigDecimalSupper extends BigDecimal {
 	}
 
 	public BigDecimalSupper(Double val, MathContext mc) {
-		super(val == null ? "0" : Double.toString(val), mc);
+		super(val == null ? BigDecimal.ZERO.toString() : Double.toString(val), mc);
 	}
 
 	public BigDecimalSupper(BigInteger val) {

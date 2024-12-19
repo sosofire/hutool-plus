@@ -99,4 +99,18 @@ public class BigDecimalSupperTest {
 		// 测试是否相等
 		Assert.assertEquals(objectByDouble1, objectByDouble2);
 	}
+
+	@Test
+	public void newNullTest(){
+		// 避免null异常
+		Double value1 = null;
+		Double value2 = null;
+		BigDecimalSupper objectByDouble1 = new BigDecimalSupper(value1);
+		Assert.assertEquals(Double.valueOf(0D), Double.valueOf(objectByDouble1.doubleValue()));
+
+		BigDecimalSupper objectByDouble2 = new BigDecimalSupper(value2);
+
+		// 测试是否相等
+		Assert.assertEquals(objectByDouble1, objectByDouble2);
+	}
 }
