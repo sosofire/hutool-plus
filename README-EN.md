@@ -150,18 +150,18 @@ We provide the T-Shirt and Sweater with Hutool Logo, please visit the shop：
 <dependency>
     <groupId>io.gitee.ssoss</groupId>
     <artifactId>hutool-all</artifactId>
-    <version>5.8.33</version>
+    <version>5.9.0</version>
 </dependency>
 ```
 
 ### 🍐Gradle
 ```
-implementation 'cn.hutool:hutool-all:5.8.33'
+implementation 'cn.hutool:hutool-all:5.9.0'
 ```
 
 ## 📥Download
 
-- [Maven Repo](https://repo1.maven.org/maven2/cn/hutool/hutool-all/5.8.33/)
+- [Maven Repo](https://repo1.maven.org/maven2/cn/hutool/hutool-all/5.9.0/)
 
 > 🔔️note:
 > Hutool 5.x supports JDK8+ and is not tested on Android platforms, and cannot guarantee that all tool classes or tool methods are available.

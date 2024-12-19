@@ -85,4 +85,18 @@ public class BigDecimalSupperTest {
 //		System.out.println(exclusiveTaxAmount);
 
 	}
+
+	@Test
+	public void newDoubleFloatTest(){
+		// 避免小数精度问题
+		double value1 = 1.010;
+		double value2 = 1.010;
+		BigDecimalSupper objectByDouble1 = new BigDecimalSupper(value1);
+		Assert.assertEquals(Double.valueOf(value1), Double.valueOf(objectByDouble1.doubleValue()));
+
+		BigDecimalSupper objectByDouble2 = new BigDecimalSupper(value2);
+		Assert.assertEquals(Double.valueOf(value2), Double.valueOf(objectByDouble2.doubleValue()));
+		// 测试是否相等
+		Assert.assertEquals(objectByDouble1, objectByDouble2);
+	}
 }

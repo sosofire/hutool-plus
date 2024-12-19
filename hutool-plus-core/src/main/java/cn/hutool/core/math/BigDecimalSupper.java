@@ -48,7 +48,7 @@ public class BigDecimalSupper extends BigDecimal {
 	}
 
 	public BigDecimalSupper(Double val) {
-		super(val == null ? 0D : val);
+		super(val == null ? "0" : Double.toString(val));
 	}
 
 	public BigDecimalSupper(Float val) {
@@ -56,11 +56,11 @@ public class BigDecimalSupper extends BigDecimal {
 	}
 
 	public BigDecimalSupper(double val, MathContext mc) {
-		super(val, mc);
+		super(Double.toString(val), mc);
 	}
 
 	public BigDecimalSupper(Double val, MathContext mc) {
-		super(val == null ? 0D : val, mc);
+		super(val == null ? "0" : Double.toString(val), mc);
 	}
 
 	public BigDecimalSupper(BigInteger val) {
@@ -352,11 +352,11 @@ public class BigDecimalSupper extends BigDecimal {
 	}
 
 	public static BigDecimalSupper valueOf(double val) {
-		return new BigDecimalSupper(val);
+		return new BigDecimalSupper(Double.toString(val));
 	}
 
 	public static BigDecimalSupper valueOf(float val) {
-		return new BigDecimalSupper(val);
+		return new BigDecimalSupper(Float.toString(val));
 	}
 
 	public static BigDecimalSupper valueOf(long val) {
@@ -368,7 +368,7 @@ public class BigDecimalSupper extends BigDecimal {
 	}
 
 	public static BigDecimalSupper valueOf(short val) {
-		return new BigDecimalSupper(Short.toString(val));
+		return new BigDecimalSupper(String.valueOf(val));
 	}
 
 	public static BigDecimalSupper valueOf(BigDecimal val) {
@@ -393,6 +393,4 @@ public class BigDecimalSupper extends BigDecimal {
 	private void logDivisionByZeroError() {
 		log.error("除数不能为0");
 	}
-
-
 }
