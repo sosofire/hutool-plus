@@ -17,20 +17,20 @@
 <dependency>
     <groupId>io.gitee.ssoss</groupId>
     <artifactId>hutool-plus-all</artifactId>
-    <version>5.8.31</version>
+    <version>5.8.33</version>
  </dependency>
 ```
 
 ### 🍐Gradle
 ```
-implementation 'io.gitee.ssoss:hutool-plus-all:5.8.31'
+implementation 'io.gitee.ssoss:hutool-plus-all:5.8.33'
 ```
 
 ### 📥下载jar
 
 点击以下链接，下载`hutool-all-X.X.X.jar`即可：
 
-- [Maven中央库](https://repo1.maven.org/maven2/cn/hutool-plus/hutool-all/5.8.31/)
+- [Maven中央库](https://repo1.maven.org/maven2/cn/hutool-plus/hutool-all/5.8.33/)
 
 > 🔔️注意
 > Hutool-Plus 5.x支持JDK8+，对Android平台没有测试，不能保证所有工具类或工具方法可用。

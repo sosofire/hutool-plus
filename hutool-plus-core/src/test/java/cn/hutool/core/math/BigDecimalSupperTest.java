@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.math.RoundingMode;
 
 /**
@@ -75,6 +74,15 @@ public class BigDecimalSupperTest {
 		// BigDecimal 默认要求除法操作的结果必须是精确的，如果结果是一个无限循环小数，就会抛出异常。以下是报错示范
 //        System.out.println(BigDecimal.valueOf(4.503).divide(BigDecimal.valueOf(0)));
 //        System.out.println(BigDecimal.valueOf(4.503).setScale(2).divide(BigDecimal.valueOf(4.503)));
+
+		// 无限循环小数，报错
+//		// 含税金额
+//		BigDecimal inclusiveTaxAmount = new BigDecimal("1000");
+//		// 税率
+//		BigDecimal taxRate = new BigDecimal("0.13");
+//		// 不含税金额 = 含税金额 / (1+税率)
+//		BigDecimal exclusiveTaxAmount = inclusiveTaxAmount.divide(BigDecimal.ONE.add(taxRate));
+//		System.out.println(exclusiveTaxAmount);
 
 	}
 }

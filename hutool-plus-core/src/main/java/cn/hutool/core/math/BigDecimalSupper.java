@@ -119,14 +119,11 @@ public class BigDecimalSupper extends BigDecimal {
 		return BigDecimalSupper.valueOf(super.add(augend));
 	}
 
-	public <T> BigDecimalSupper add(T augend) {
-		if (augend instanceof Number) {
-			return this.add(new BigDecimalSupper(augend.toString()));
-		}
+	public <T extends Number> BigDecimalSupper add(T augend) {
 		if (null == augend) {
 			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
 		}
-		throw new IllegalArgumentException("Invalid Type");
+		return this.add(new BigDecimalSupper(augend.toString()));
 	}
 
 	@Override
@@ -137,14 +134,11 @@ public class BigDecimalSupper extends BigDecimal {
 		return BigDecimalSupper.valueOf(super.add(augend, mc));
 	}
 
-	public <T> BigDecimalSupper add(T augend, MathContext mc) {
-		if (augend instanceof Number) {
-			return this.add(new BigDecimalSupper(augend.toString()), mc);
-		}
+	public <T extends Number> BigDecimalSupper add(T augend, MathContext mc) {
 		if (null == augend) {
 			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
 		}
-		throw new IllegalArgumentException("Invalid Type");
+		return this.add(new BigDecimalSupper(augend.toString()), mc);
 	}
 
 	@Override
@@ -155,14 +149,11 @@ public class BigDecimalSupper extends BigDecimal {
 		return BigDecimalSupper.valueOf(super.subtract(subtrahend));
 	}
 
-	public <T> BigDecimalSupper subtract(T subtrahend) {
-		if (subtrahend instanceof Number) {
-			return this.subtract(new BigDecimalSupper(subtrahend.toString()));
-		}
+	public <T extends Number> BigDecimalSupper subtract(T subtrahend) {
 		if (null == subtrahend) {
 			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
 		}
-		throw new IllegalArgumentException("Invalid Type");
+		return this.subtract(new BigDecimalSupper(subtrahend.toString()));
 	}
 
 	@Override
@@ -173,14 +164,41 @@ public class BigDecimalSupper extends BigDecimal {
 		return BigDecimalSupper.valueOf(super.subtract(subtrahend, mc));
 	}
 
-	public <T> BigDecimalSupper subtract(T subtrahend, MathContext mc) {
-		if (subtrahend instanceof Number) {
-			return this.subtract(new BigDecimalSupper(subtrahend.toString()), mc);
-		}
+	public <T extends Number> BigDecimalSupper subtract(T subtrahend, MathContext mc) {
 		if (null == subtrahend) {
 			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
 		}
-		throw new IllegalArgumentException("Invalid Type");
+		return this.subtract(new BigDecimalSupper(subtrahend.toString()), mc);
+	}
+
+	@Override
+	public BigDecimalSupper multiply(BigDecimal multiplicand) {
+		if (null == multiplicand) {
+			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
+		}
+		return BigDecimalSupper.valueOf(super.multiply(multiplicand));
+	}
+
+	public <T extends Number> BigDecimalSupper multiply(T multiplicand) {
+		if (null == multiplicand) {
+			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
+		}
+		return this.multiply(new BigDecimalSupper(multiplicand.toString()));
+	}
+
+	@Override
+	public BigDecimalSupper multiply(BigDecimal multiplicand, MathContext mc) {
+		if (null == multiplicand) {
+			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
+		}
+		return BigDecimalSupper.valueOf(super.multiply(multiplicand, mc));
+	}
+
+	public <T extends Number> BigDecimalSupper multiply(T multiplicand, MathContext mc) {
+		if (null == multiplicand) {
+			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
+		}
+		return this.multiply(new BigDecimalSupper(multiplicand.toString(), mc));
 	}
 
 	@Override
@@ -195,17 +213,15 @@ public class BigDecimalSupper extends BigDecimal {
 		}
 		// BigDecimal 默认要求除法操作的结果必须是精确的，如果结果是一个无限循环小数，就会抛出异常。
 		//要解决这个问题，可以在 divide 方法中指定一个舍入模式（Rounding Mode）
-		return BigDecimalSupper.valueOf(super.divide(divisor, RoundingMode.HALF_UP));
+		// 指定精度为10位小数，并使用HALF_UP舍入模式
+		return BigDecimalSupper.valueOf(super.divide(divisor, 10, RoundingMode.HALF_UP));
 	}
 
-	public <T> BigDecimalSupper divide(T divisor) {
-		if (divisor instanceof Number) {
-			return this.divide(new BigDecimalSupper(divisor.toString()));
-		}
+	public <T extends Number> BigDecimalSupper divide(T divisor) {
 		if (null == divisor) {
 			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
 		}
-		throw new IllegalArgumentException("Invalid Type");
+		return this.divide(new BigDecimalSupper(divisor.toString()));
 	}
 
 	@Override
@@ -223,14 +239,11 @@ public class BigDecimalSupper extends BigDecimal {
 		return BigDecimalSupper.valueOf(super.divide(divisor, roundingMode));
 	}
 
-	public <T> BigDecimalSupper divide(T divisor, RoundingMode roundingMode){
-		if (divisor instanceof Number) {
-			return this.divide(new BigDecimalSupper(divisor.toString()), roundingMode);
-		}
+	public <T extends Number> BigDecimalSupper divide(T divisor, RoundingMode roundingMode){
 		if (null == divisor) {
 			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
 		}
-		throw new IllegalArgumentException("Invalid Type");
+		return this.divide(new BigDecimalSupper(divisor.toString()), roundingMode);
 	}
 
 	@Override
@@ -241,14 +254,11 @@ public class BigDecimalSupper extends BigDecimal {
 		return BigDecimalSupper.valueOf(super.divide(divisor, roundingMode));
 	}
 
-	public <T> BigDecimalSupper divide(T divisor, int roundingMode) {
-		if (divisor instanceof Number) {
-			return this.divide(new BigDecimalSupper(divisor.toString()), roundingMode);
-		}
+	public <T extends Number> BigDecimalSupper divide(T divisor, int roundingMode) {
 		if (null == divisor) {
 			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
 		}
-		throw new IllegalArgumentException("Invalid Type");
+		return this.divide(new BigDecimalSupper(divisor.toString()), roundingMode);
 	}
 
 	@Override
@@ -259,14 +269,11 @@ public class BigDecimalSupper extends BigDecimal {
 		return BigDecimalSupper.valueOf(super.divide(divisor, scale, roundingMode));
 	}
 
-	public <T> BigDecimalSupper divide(T divisor, int scale, RoundingMode roundingMode) {
-		if (divisor instanceof Number) {
-			return this.divide(new BigDecimalSupper(divisor.toString()), scale, roundingMode);
-		}
+	public <T extends Number> BigDecimalSupper divide(T divisor, int scale, RoundingMode roundingMode) {
 		if (null == divisor) {
 			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
 		}
-		throw new IllegalArgumentException("Invalid Type");
+		return this.divide(new BigDecimalSupper(divisor.toString()), scale, roundingMode);
 	}
 
 	@Override
@@ -277,50 +284,11 @@ public class BigDecimalSupper extends BigDecimal {
 		return BigDecimalSupper.valueOf(super.divide(divisor, scale, roundingMode));
 	}
 
-	public <T> BigDecimalSupper divide(T divisor, int scale, int roundingMode) {
-		if (divisor instanceof Number) {
-			return this.divide(new BigDecimalSupper(divisor.toString()), scale, roundingMode);
-		}
+	public <T extends Number> BigDecimalSupper divide(T divisor, int scale, int roundingMode) {
 		if (null == divisor) {
 			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
 		}
-		throw new IllegalArgumentException("Invalid Type");
-	}
-
-	@Override
-	public BigDecimalSupper multiply(BigDecimal multiplicand) {
-		if (null == multiplicand) {
-			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
-		}
-		return BigDecimalSupper.valueOf(super.multiply(multiplicand));
-	}
-
-	public <T> BigDecimalSupper multiply(T multiplicand) {
-		if (multiplicand instanceof Number) {
-			return this.multiply(new BigDecimalSupper(multiplicand.toString()));
-		}
-		if (null == multiplicand) {
-			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
-		}
-		throw new IllegalArgumentException("Invalid Type");
-	}
-
-	@Override
-	public BigDecimalSupper multiply(BigDecimal multiplicand, MathContext mc) {
-		if (null == multiplicand) {
-			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
-		}
-		return BigDecimalSupper.valueOf(super.multiply(multiplicand, mc));
-	}
-
-	public <T> BigDecimalSupper multiply(T multiplicand, MathContext mc) {
-		if (multiplicand instanceof Number) {
-			return this.multiply(new BigDecimalSupper(multiplicand.toString(), mc));
-		}
-		if (null == multiplicand) {
-			return BigDecimalSupper.valueOf(BigDecimal.ZERO);
-		}
-		return BigDecimalSupper.valueOf(super.multiply((BigDecimal) multiplicand, mc));
+		return this.divide(new BigDecimalSupper(divisor.toString()), scale, roundingMode);
 	}
 
 	public static BigDecimalSupper valueOf(Double unscaledVal, int scale) {
