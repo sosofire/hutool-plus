@@ -292,7 +292,7 @@ Hutool-Plus的源码分为两个分支，功能如下：
 
 提交问题反馈请说明正在使用的JDK版本呢、Hutool-Plus版本和相关依赖库版本。
 
-- [Gitee issue](https://gitee.com/ssoss/hutool/issues)
+- [Gitee issue](https://gitee.com/ssoss/hutool-plus/issues)
 
 
 ### 🧬贡献代码的步骤
