@@ -1,6 +1,4 @@
 
--------------------------------------------------------------------------------
-
 ## 📚简介
 
 `Hutool-Plus`是基于Hutool开源项目，进行功能增强的开源项目。 `Hutool-Plus`是一个功能丰富且易用的**Java工具库**，通过诸多实用工具类的使用，旨在帮助开发者快速、便捷地完成各类开发任务。
@@ -9,34 +7,6 @@
 
 -------------------------------------------------------------------------------
 
-## 🛠️包含组件
-一个Java基础工具类，对文件、流、加密解密、转码、正则、线程、XML等JDK方法进行封装，组成各种Util工具类，同时提供以下组件：
-
-| 模块                |     介绍                                                                          |
-| -------------------|---------------------------------------------------------------------------------- |
-| hutool-aop         |     JDK动态代理封装，提供非IOC下的切面支持                                              |
-| hutool-bloomFilter |     布隆过滤，提供一些Hash算法的布隆过滤                                                |
-| hutool-cache       |     简单缓存实现                                                                     |
-| hutool-core        |     核心，包括Bean操作、日期、各种Util等                                               |
-| hutool-cron        |     定时任务模块，提供类Crontab表达式的定时任务                                          |
-| hutool-crypto      |     加密解密模块，提供对称、非对称和摘要算法封装                                          |
-| hutool-db          |     JDBC封装后的数据操作，基于ActiveRecord思想                                         |
-| hutool-dfa         |     基于DFA模型的多关键字查找                                                         |
-| hutool-extra       |     扩展模块，对第三方封装（模板引擎、邮件、Servlet、二维码、Emoji、FTP、分词等）            |
-| hutool-http        |     基于HttpUrlConnection的Http客户端封装                                            |
-| hutool-log         |     自动识别日志实现的日志门面                                                         |
-| hutool-script      |     脚本执行封装，例如Javascript                                                      |
-| hutool-setting     |     功能更强大的Setting配置文件和Properties封装                                        |
-| hutool-system      |     系统参数调用封装（JVM信息等）                                                      |
-| hutool-json        |     JSON实现                                                                       |
-| hutool-captcha     |     图片验证码实现                                                                   |
-| hutool-poi         |     针对POI中Excel和Word的封装                                                       |
-| hutool-socket      |     基于Java的NIO和AIO的Socket封装                                                   |
-| hutool-jwt         |     JSON Web Token (JWT)封装实现                                                    |
-
-可以根据需求对每个模块单独引入，也可以通过引入`hutool-all`方式引入所有模块。
-
--------------------------------------------------------------------------------
 
 ## 📦安装
 
@@ -45,22 +15,22 @@
 
 ```xml
 <dependency>
-    <groupId>cn.hutool-plus</groupId>
-    <artifactId>hutool-all</artifactId>
-    <version>5.8.30</version>
-</dependency>
+    <groupId>io.gitee.ssoss</groupId>
+    <artifactId>hutool-plus-all</artifactId>
+    <version>5.9.0</version>
+ </dependency>
 ```
 
 ### 🍐Gradle
 ```
-implementation 'cn.hutool.plus:hutool-all:5.8.30'
+implementation 'io.gitee.ssoss:hutool-plus-all:5.9.0'
 ```
 
 ### 📥下载jar
 
 点击以下链接，下载`hutool-all-X.X.X.jar`即可：
 
-- [Maven中央库](https://repo1.maven.org/maven2/cn/hutool-plus/hutool-all/5.8.30/)
+- [Maven中央库](https://repo1.maven.org/maven2/cn/hutool-plus/hutool-all/5.9.0/)
 
 > 🔔️注意
 > Hutool-Plus 5.x支持JDK8+，对Android平台没有测试，不能保证所有工具类或工具方法可用。
@@ -119,6 +89,10 @@ static class SysUserVO implements Serializable {
 	private String value;
 }
 
+/**
+ * 测试自定义转换器
+ * @author lingengkeng
+ */
 @Test
 public void toBeanTest1(){
 	// 创建源对象
@@ -127,19 +101,24 @@ public void toBeanTest1(){
 	sysUser.setCustomerId("456");
 	sysUser.setValue(1d);
 
-	final SysUserVO sysUserVO = BeanUtil.toBean(sysUser, SysUserVO.class, (targetProp, source, target, sourceValue) -> {
-		// 相同属性不同类型：把属性值进行逻辑运算，并赋值给目标属性
-		targetProp.set(source::getValue, target::getValue, Double.valueOf(sourceValue.toString()) + 1);
-		// 不同属性，不同类型：直接赋值给目标属性
-		targetProp.set(source::getCustomerId, target::getOrgId, sourceValue);
+	final SysUserVO sysUserVO = BeanUtil.toBean(sysUser, SysUserVO.class, (source, target) -> {
+		target.setDepart(666L);
+//			target.setValue(source.getValue());
+		target.setOrgId(Double.valueOf(source.getCustomerId()));
 	});
+	Assert.assertEquals(Integer.valueOf(sysUser.getCustomerId()), Integer.valueOf(sysUserVO.getOrgId().intValue()));
 }
+
 
 ```
 
 #### 2. Bean列表拷贝：自定义属性拷贝 与 默认属性转换
 
 ```Java
+	/**
+ * 测试自定义转换器
+ * @author lingengkeng
+ */
 @Test
 public void copyToListTest(){
 	// 创建源对象
@@ -147,16 +126,21 @@ public void copyToListTest(){
 	sysUser.setDepId("123");
 	sysUser.setCustomerId("456");
 	sysUser.setValue(1d);
-	// 列表
-	List<SysUser> sysUserList = Arrays.asList(sysUser);
-	
+
+	final SysUser sysUser1 = new SysUser();
+	sysUser1.setDepId("3333");
+	sysUser1.setCustomerId("666");
+	sysUser1.setValue(2d);
+
+	// 用户列表
+	List<SysUser> sysUserList = Arrays.asList(sysUser, sysUser1);
+
 	// 列表中的对象属性值转换
-	List<SysUserVO> sysUserVOList = BeanUtil.copyToList(sysUserList, SysUserVO.class, (targetProp, source, target, sourceValue) -> {
-		// 不同属性，不同类型：直接赋值给目标属性
-		targetProp.set(source::getCustomerId, target::getOrgId, sourceValue);
-		// 相同属性不同类型：把属性值进行逻辑运算，并赋值给目标属性
-		targetProp.set(source::getValue, target::getValue, Double.valueOf(sourceValue.toString()) + 1);
+	List<SysUserVO> sysUserVOList = BeanUtil.copyToList(sysUserList, SysUserVO.class, (source, target) -> {
+		target.setOrgId(Double.valueOf(source.getCustomerId()));
+//			target.setValue(String.valueOf(source.getValue() + 1));
 	});
+	Assert.assertEquals(Integer.valueOf(sysUser.getCustomerId()), Integer.valueOf(sysUserVOList.get(0).getOrgId().intValue()));
 }
 ```
 
@@ -229,9 +213,69 @@ public void valueSumTest() {
 	Assert.assertEquals(30, valuesSum, 0);
 }
 ```
+### 5.计算相关类
 
+```Java
+@Test
+public void calcTest() {
+	// 在很多代码里面，如果参数是null，直接使用0(当分母为0时)，会导致程序异常，使用BigDecimalSupper，可以避免这个问题。
+	// 或者使用Optional，但是Optional在处理null值时，代码会更长，而且需要引入额外的依赖。
+	// BigDecimalSupper 可以处理null值，并且可以避免抛出异常，使得代码更加健壮。BigDecimal 不能处理null值，需要在代码中做空值判断。
+	Float a = null;
+	Double b = null;
+	Long c = null;
+	Integer t = null;
+	BigDecimal subtract = new BigDecimalSupper(a).setScale(2).divide(new BigDecimalSupper(a).setScale(2)).add(BigDecimalSupper.valueOf(b)).add(BigDecimalSupper.valueOf(1));
+	System.out.println(subtract);
+	
+			BigDecimal subtract1 = new BigDecimalSupper(c).multiply(new BigDecimalSupper(a)).add(BigDecimalSupper.valueOf(b)).add(BigDecimalSupper.valueOf(1));
+			System.out.println(subtract1);
+	
+			BigDecimal subtract2 = new BigDecimalSupper(t).subtract(new BigDecimalSupper(a)).add(BigDecimalSupper.valueOf(b)).add(BigDecimalSupper.valueOf(1));
+			System.out.println(subtract2);
+	
+	
+	//        System.out.println(new BigDecimalSupper(4.503).setScale(2).divide(new BigDecimalSupper(a)));
+	//        System.out.println(new BigDecimalSupper(4.503).setScale(2, RoundingMode.HALF_UP).divide(new BigDecimalSupper(4.503)));
+	
+			// BigDecimal 默认要求除法操作的结果必须是精确的，如果结果是一个无限循环小数，就会抛出异常。以下是报错示范
+	//        System.out.println(BigDecimal.valueOf(4.503).divide(BigDecimal.valueOf(0)));
+	//        System.out.println(BigDecimal.valueOf(4.503).setScale(2).divide(BigDecimal.valueOf(4.503)));
+
+}
+```
 
 -------------------------------------------------------------------------------
+
+## 🛠️包含组件
+一个Java基础工具类，对文件、流、加密解密、转码、正则、线程、XML等JDK方法进行封装，组成各种Util工具类，同时提供以下组件：
+
+| 模块                |     介绍                                                                          |
+| -------------------|---------------------------------------------------------------------------------- |
+| hutool-aop         |     JDK动态代理封装，提供非IOC下的切面支持                                              |
+| hutool-bloomFilter |     布隆过滤，提供一些Hash算法的布隆过滤                                                |
+| hutool-cache       |     简单缓存实现                                                                     |
+| hutool-core        |     核心，包括Bean操作、日期、各种Util等                                               |
+| hutool-cron        |     定时任务模块，提供类Crontab表达式的定时任务                                          |
+| hutool-crypto      |     加密解密模块，提供对称、非对称和摘要算法封装                                          |
+| hutool-db          |     JDBC封装后的数据操作，基于ActiveRecord思想                                         |
+| hutool-dfa         |     基于DFA模型的多关键字查找                                                         |
+| hutool-extra       |     扩展模块，对第三方封装（模板引擎、邮件、Servlet、二维码、Emoji、FTP、分词等）            |
+| hutool-http        |     基于HttpUrlConnection的Http客户端封装                                            |
+| hutool-log         |     自动识别日志实现的日志门面                                                         |
+| hutool-script      |     脚本执行封装，例如Javascript                                                      |
+| hutool-setting     |     功能更强大的Setting配置文件和Properties封装                                        |
+| hutool-system      |     系统参数调用封装（JVM信息等）                                                      |
+| hutool-json        |     JSON实现                                                                       |
+| hutool-captcha     |     图片验证码实现                                                                   |
+| hutool-poi         |     针对POI中Excel和Word的封装                                                       |
+| hutool-socket      |     基于Java的NIO和AIO的Socket封装                                                   |
+| hutool-jwt         |     JSON Web Token (JWT)封装实现                                                    |
+
+可以根据需求对每个模块单独引入，也可以通过引入`hutool-all`方式引入所有模块。
+
+-------------------------------------------------------------------------------
+
 
 ## 🏗️添砖加瓦
 
@@ -248,7 +292,7 @@ Hutool-Plus的源码分为两个分支，功能如下：
 
 提交问题反馈请说明正在使用的JDK版本呢、Hutool-Plus版本和相关依赖库版本。
 
-- [Gitee issue](https://gitee.com/ssoss/hutool/issues)
+- [Gitee issue](https://gitee.com/ssoss/hutool-plus/issues)
 
 
 ### 🧬贡献代码的步骤
